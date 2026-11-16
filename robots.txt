@@ -1,4 +1,7 @@
 
+# Robots.txt - SaveVid
+# Website: https://savevid.cloud/
+
 User-agent: *
 Allow: /
 
