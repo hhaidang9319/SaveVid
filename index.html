@@ -151,7 +151,8 @@
 
     <!-- Script Logic -->
     <script>
-        const WORKER_API_URL = "https://mediaswift-api.hhaidang9319.workers.dev/api/extract";
+        const WORKER_API_BASE = "https://mediaswift-api.hhaidang9319.workers.dev";
+        const WORKER_API_URL = `${WORKER_API_BASE}/api/extract`;
 
         let currentPlatform = 'tiktok';
         let currentLang = 'vi';
@@ -238,7 +239,8 @@
 
             data.formats.forEach(opt => {
                 const btn = document.createElement('a');
-                btn.href = opt.url;
+                // Định tuyến qua Worker Proxy Download để ép buộc trình duyệt tải tệp xuống thay vì mở xem trực tuyến
+                btn.href = `${WORKER_API_BASE}/api/download?url=${encodeURIComponent(opt.url)}`;
                 btn.target = "_blank";
                 btn.download = "";
                 btn.onclick = () => addHistory(url, opt.label);
