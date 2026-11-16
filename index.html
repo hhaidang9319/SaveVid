@@ -160,11 +160,13 @@
         const translations = {
             vi: {
                 invalidUrl: "Vui lòng nhập định dạng URL hợp lệ bắt đầu bằng http:// hoặc https://",
-                fetchError: "Lỗi phản hồi từ máy chủ xử lý dữ liệu."
+                fetchError: "Lỗi phản hồi từ máy chủ xử lý dữ liệu.",
+                downloading: "Đang tải xuống tệp..."
             },
             en: {
                 invalidUrl: "Please enter a valid URL format starting with http:// or https://",
-                fetchError: "Error parsing response from data server."
+                fetchError: "Error parsing response from data server.",
+                downloading: "Downloading file..."
             }
         };
 
@@ -210,7 +212,7 @@
                 try {
                     data = JSON.parse(responseText);
                 } catch (e) {
-                    throw new Error("Phản hồi từ máy chủ không hợp lệ (Lỗi phân tích JSON).");
+                    throw new Error("Phản hồi từ máy chủ không hợp lệ.");
                 }
 
                 if (!response.ok) {
@@ -222,7 +224,7 @@
             } catch (err) {
                 document.getElementById('loading-spinner').classList.add('hidden');
                 errorText.textContent = err.message || translations[currentLang].fetchError;
-                errorEl.classList.remove('hidden');
+                errorEl.classList.add('hidden');
             }
         }
 
@@ -238,13 +240,15 @@
             formatContainer.innerHTML = '';
 
             data.formats.forEach(opt => {
-                const btn = document.createElement('a');
-                // Định tuyến qua Worker Proxy Download để ép buộc trình duyệt tải tệp xuống thay vì mở xem trực tuyến
-                btn.href = `${WORKER_API_BASE}/api/download?url=${encodeURIComponent(opt.url)}`;
-                btn.target = "_blank";
-                btn.download = "";
-                btn.onclick = () => addHistory(url, opt.label);
-                btn.className = 'flex items-center justify-between p-3.5 rounded-xl border border-slate-800 bg-slate-900/90 hover:bg-blue-600/20 hover:border-blue-500/50 transition-all text-xs font-semibold text-slate-200 group cursor-pointer shadow-sm';
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                // Sử dụng hàm Blob Download qua Worker Proxy để ép tải file trực tiếp xuống máy
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    triggerBlobDownload(opt.url, opt.label);
+                    addHistory(url, opt.label);
+                };
+                btn.className = 'w-full flex items-center justify-between p-3.5 rounded-xl border border-slate-800 bg-slate-900/90 hover:bg-blue-600/20 hover:border-blue-500/50 transition-all text-xs font-semibold text-slate-200 group cursor-pointer shadow-sm text-left';
                 btn.innerHTML = `
                     <span class="flex items-center space-x-2.5">
                         <i class="fa-solid ${opt.type === 'video' ? 'fa-video text-blue-400' : 'fa-music text-emerald-400'} text-sm"></i>
@@ -257,6 +261,27 @@
                 `;
                 formatContainer.appendChild(btn);
             });
+        }
+
+        async function triggerBlobDownload(fileUrl, label) {
+            try {
+                const downloadUrl = `${WORKER_API_BASE}/api/download?url=${encodeURIComponent(fileUrl)}`;
+                const response = await fetch(downloadUrl);
+                if (!response.ok) throw new Error("Network response was not ok");
+                
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = `mediaswift_${Date.now()}.mp4`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(blobUrl);
+                a.remove();
+            } catch (err) {
+                // Fallback mở tab mới nếu trình duyệt chặn stream nhị phân
+                window.open(fileUrl, '_blank');
+            }
         }
 
         function addHistory(url, type) {
