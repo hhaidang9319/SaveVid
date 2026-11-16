@@ -32,7 +32,7 @@
                 </div>
                 <div>
                     <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-blue-400 bg-clip-text text-transparent">MediaSwift</span>
-                    <span class="text-xs block text-slate-400 font-medium lang-sub-title">Enterprise Media Extraction</span>
+                    <span class="text-xs block text-slate-400 font-medium" data-i18n="subTitle">Enterprise Media Extraction</span>
                 </div>
             </div>
 
@@ -51,10 +51,10 @@
         <div class="text-center mb-10">
             <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-4">
                 <i class="fa-solid fa-shield-halved"></i>
-                <span class="lang-badge">Hệ thống xử lý bảo mật & hiệu suất cao</span>
+                <span data-i18n="badge">Hệ thống xử lý bảo mật & hiệu suất cao</span>
             </div>
-            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 lang-hero-title">Trình Trích Xuất Dữ Liệu Đa Nền Tảng</h1>
-            <p class="text-slate-400 max-w-xl mx-auto text-sm md:text-base lang-hero-desc">Trích xuất video không dấu chìm (watermark) từ TikTok, Facebook, YouTube và YouTube Shorts với độ phân giải tùy chọn tối ưu.</p>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4" data-i18n="heroTitle">Trình Trích Xuất Dữ Liệu Đa Nền Tảng</h1>
+            <p class="text-slate-400 max-w-xl mx-auto text-sm md:text-base" data-i18n="heroDesc">Trích xuất video không dấu chìm (watermark) từ TikTok, Facebook, YouTube và YouTube Shorts với độ phân giải tùy chọn tối ưu.</p>
         </div>
 
         <!-- Platform Tabs -->
@@ -87,12 +87,12 @@
                     <input type="text" id="url-input" class="w-full bg-slate-950/90 border border-slate-800/80 rounded-xl py-4 pl-12 pr-4 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-all shadow-inner" placeholder="Nhập hoặc dán liên kết phương tiện...">
                 </div>
                 <button onclick="handleFetch()" id="fetch-btn" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl transition-all flex items-center justify-center space-x-2 shadow-lg shadow-blue-600/30 text-sm cursor-pointer whitespace-nowrap">
-                    <span class="lang-btn-text">Trích Xuất</span>
+                    <span data-i18n="btnText">Trích Xuất</span>
                     <i class="fa-solid fa-arrow-right-long"></i>
                 </button>
             </div>
-            <div id="error-msg" class="text-rose-400 text-xs mt-3 px-1 hidden flex items-center space-x-1.5 font-medium">
-                <i class="fa-solid fa-circle-exclamation"></i>
+            <div id="error-msg" class="text-rose-400 text-xs mt-3 px-1 hidden flex items-start space-x-1.5 font-medium leading-relaxed">
+                <i class="fa-solid fa-circle-exclamation mt-0.5"></i>
                 <span id="error-text"></span>
             </div>
         </div>
@@ -100,7 +100,7 @@
         <!-- Loading Indicator -->
         <div id="loading-spinner" class="hidden text-center py-16 glass-panel rounded-2xl mb-8">
             <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent mb-4 shadow-lg shadow-blue-500/20"></div>
-            <p class="text-slate-300 text-sm font-medium lang-processing">Đang phân tích và xử lý luồng dữ liệu từ máy chủ...</p>
+            <p class="text-slate-300 text-sm font-medium" data-i18n="processing">Đang phân tích và trích xuất luồng dữ liệu...</p>
         </div>
 
         <!-- Result Section -->
@@ -108,20 +108,20 @@
             <div class="flex flex-col md:flex-row gap-6 items-start">
                 <div class="w-full md:w-52 h-36 bg-slate-900 rounded-xl overflow-hidden border border-slate-800 flex items-center justify-center relative flex-shrink-0 shadow-inner">
                     <img id="res-thumbnail" src="" alt="Thumbnail" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[2px]">
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
                         <i class="fa-solid fa-play text-white text-2xl opacity-90"></i>
                     </div>
                 </div>
                 <div class="flex-1 w-full">
                     <div class="flex items-center space-x-2 mb-2">
                         <span id="res-platform" class="text-xs font-bold px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20 uppercase tracking-wider">TIKTOK</span>
-                        <span class="text-xs text-slate-500 font-medium">• Trích xuất thành công</span>
+                        <span class="text-xs text-emerald-400 font-medium" data-i18n="extractedSuccess">• Trích xuất thành công</span>
                     </div>
                     <h3 id="res-title" class="text-base font-bold text-slate-100 mb-5 line-clamp-2">Tiêu đề nội dung phương tiện</h3>
                     
                     <!-- Format Options -->
                     <div class="space-y-3">
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider lang-select-res">Chọn định dạng và chất lượng tệp:</label>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider" data-i18n="selectRes">Chọn định dạng và chất lượng tệp:</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="format-options"></div>
                     </div>
                 </div>
@@ -131,14 +131,14 @@
         <!-- Session Download History -->
         <div class="glass-panel p-6 rounded-2xl">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider lang-history-title flex items-center space-x-2">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
                     <i class="fa-solid fa-clock-rotate-left"></i>
-                    <span>Lịch sử trích xuất phiên làm việc</span>
+                    <span data-i18n="historyTitle">Lịch sử trích xuất phiên làm việc</span>
                 </h3>
-                <span class="text-xs text-slate-500 font-medium lang-history-note">Dữ liệu lưu tạm thời</span>
+                <span class="text-xs text-slate-500 font-medium" data-i18n="historyNote">Dữ liệu lưu tạm thời</span>
             </div>
             <div id="history-list" class="space-y-2.5">
-                <p class="text-xs text-slate-500 italic lang-no-history">Chưa có lịch sử giao dịch dữ liệu trong phiên này.</p>
+                <p class="text-xs text-slate-500 italic" id="no-history-msg" data-i18n="noHistory">Chưa có lịch sử giao dịch dữ liệu trong phiên này.</p>
             </div>
         </div>
 
@@ -146,7 +146,7 @@
 
     <!-- Footer -->
     <footer class="border-t border-slate-900 mt-20 py-8 text-center text-xs text-slate-500 bg-slate-950/40">
-        <p>&copy; 2026 MediaSwift. Nền tảng trích xuất và phân tích dữ liệu đa phương tiện hiệu suất cao.</p>
+        <p data-i18n="footer">&copy; 2026 MediaSwift. Nền tảng trích xuất và phân tích dữ liệu đa phương tiện hiệu suất cao.</p>
     </footer>
 
     <!-- Script Logic -->
@@ -157,32 +157,66 @@
         let currentPlatform = 'tiktok';
         let currentLang = 'vi';
 
-        const translations = {
+        const i18n = {
             vi: {
+                subTitle: "Enterprise Media Extraction",
+                badge: "Hệ thống xử lý bảo mật & hiệu suất cao",
+                heroTitle: "Trình Trích Xuất Dữ Liệu Đa Nền Tảng",
+                heroDesc: "Trích xuất video không dấu chìm (watermark) từ TikTok, Facebook, YouTube và YouTube Shorts với độ phân giải tùy chọn tối ưu.",
+                placeholder: "Nhập hoặc dán liên kết phương tiện...",
+                btnText: "Trích Xuất",
+                processing: "Đang phân tích và trích xuất luồng dữ liệu...",
+                extractedSuccess: "• Trích xuất thành công",
+                selectRes: "Chọn định dạng và chất lượng tệp:",
+                historyTitle: "Lịch sử trích xuất phiên làm việc",
+                historyNote: "Dữ liệu lưu tạm thời",
+                noHistory: "Chưa có lịch sử giao dịch dữ liệu trong phiên này.",
+                footer: "© 2026 MediaSwift. Nền tảng trích xuất và phân tích dữ liệu đa phương tiện hiệu suất cao.",
                 invalidUrl: "Vui lòng nhập định dạng URL hợp lệ bắt đầu bằng http:// hoặc https://",
-                fetchError: "Lỗi phản hồi từ máy chủ xử lý dữ liệu."
+                fetchError: "Lỗi phản hồi từ máy chủ xử lý dữ liệu.",
+                downloadBtn: "Tải xuống"
             },
             en: {
-                invalidUrl: "Please enter a valid URL format starting with http:// or https://",
-                fetchError: "Error parsing response from data server."
+                subTitle: "Enterprise Media Extraction",
+                badge: "Secure & High-Performance Processing Engine",
+                heroTitle: "Multi-Platform Media Extractor",
+                heroDesc: "Extract watermark-free videos from TikTok, Facebook, YouTube, and YouTube Shorts with optimal resolution options.",
+                placeholder: "Enter or paste media URL...",
+                btnText: "Extract",
+                processing: "Analyzing and extracting media streams...",
+                extractedSuccess: "• Extraction successful",
+                selectRes: "Select file format and quality:",
+                historyTitle: "Session Extraction History",
+                historyNote: "Temporary session storage",
+                noHistory: "No media transactions recorded in this session.",
+                footer: "© 2026 MediaSwift. High-performance multi-platform media extraction platform.",
+                invalidUrl: "Please enter a valid URL starting with http:// or https://",
+                fetchError: "Error parsing response from data server.",
+                downloadBtn: "Download"
             }
         };
 
         function setLanguage(lang) {
             currentLang = lang;
-            document.getElementById('lang-vi-btn').className = lang === 'vi' ? 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all bg-blue-600 text-white shadow' : 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all text-slate-400 hover:text-white';
-            document.getElementById('lang-en-btn').className = lang === 'en' ? 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all bg-blue-600 text-white shadow' : 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all text-slate-400 hover:text-white';
+            document.getElementById('lang-vi-btn').className = lang === 'vi'
+                ? 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all bg-blue-600 text-white shadow'
+                : 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all text-slate-400 hover:text-white';
+            document.getElementById('lang-en-btn').className = lang === 'en'
+                ? 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all bg-blue-600 text-white shadow'
+                : 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all text-slate-400 hover:text-white';
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang][key]) el.textContent = i18n[lang][key];
+            });
+            document.getElementById('url-input').placeholder = i18n[lang].placeholder;
         }
 
         function switchTab(platform) {
             currentPlatform = platform;
             ['tiktok', 'facebook', 'youtube', 'shorts'].forEach(p => {
                 const btn = document.getElementById(`tab-${p}`);
-                if (p === platform) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
+                btn.classList.toggle('active', p === platform);
             });
             document.getElementById('error-msg').classList.add('hidden');
         }
@@ -193,7 +227,7 @@
             const errorText = document.getElementById('error-text');
             
             if (!url || !url.startsWith('http')) {
-                errorText.textContent = translations[currentLang].invalidUrl;
+                errorText.textContent = i18n[currentLang].invalidUrl;
                 errorEl.classList.remove('hidden');
                 return;
             }
@@ -210,18 +244,18 @@
                 try {
                     data = JSON.parse(responseText);
                 } catch (e) {
-                    throw new Error("Phản hồi từ máy chủ không hợp lệ.");
+                    throw new Error(i18n[currentLang].fetchError);
                 }
 
-                if (!response.ok) {
-                    throw new Error(data.error || translations[currentLang].fetchError);
+                if (!response.ok || data.error) {
+                    throw new Error(data.error || i18n[currentLang].fetchError);
                 }
 
                 document.getElementById('loading-spinner').classList.add('hidden');
                 showResult(url, data);
             } catch (err) {
                 document.getElementById('loading-spinner').classList.add('hidden');
-                errorText.textContent = err.message || translations[currentLang].fetchError;
+                errorText.textContent = err.message || i18n[currentLang].fetchError;
                 errorEl.classList.remove('hidden');
             }
         }
@@ -238,34 +272,13 @@
             formatContainer.innerHTML = '';
 
             data.formats.forEach(opt => {
+                const proxyDownloadUrl = `${WORKER_API_BASE}/api/download?url=${encodeURIComponent(opt.url)}&type=${encodeURIComponent(opt.type)}&filename=${encodeURIComponent(data.title)}`;
+                
                 const btn = document.createElement('button');
                 btn.type = 'button';
-                
-                // Định tuyến qua Worker Proxy Download để ép buộc trình duyệt tải tệp xuống máy
-                btn.onclick = async (e) => {
-                    e.preventDefault();
-                    const originalHTML = btn.innerHTML;
-                    btn.innerHTML = `<span class="flex items-center space-x-2 text-blue-400"><i class="fa-solid fa-spinner animate-spin"></i><span>Đang tải xuống thiết bị...</span></span>`;
-                    
-                    try {
-                        const proxyDownloadUrl = `${WORKER_API_BASE}/api/download?url=${encodeURIComponent(opt.url)}`;
-                        const response = await fetch(proxyDownloadUrl);
-                        if (!response.ok) throw new Error("Network response failed");
-                        
-                        const blob = await response.blob();
-                        const blobUrl = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = blobUrl;
-                        a.download = `MediaSwift_${Date.now()}.mp4`;
-                        document.body.appendChild(a);
-                        a.click();
-                        window.URL.revokeObjectURL(blobUrl);
-                        a.remove();
-                    } catch (err) {
-                        window.open(`${WORKER_API_BASE}/api/download?url=${encodeURIComponent(opt.url)}`, '_blank');
-                    }
-
-                    btn.innerHTML = originalHTML;
+                btn.onclick = () => {
+                    // Kích hoạt trình tải xuống mặc định của trình duyệt ngay lập tức mà không mở tab mới
+                    window.location.href = proxyDownloadUrl;
                     addHistory(url, opt.label);
                 };
 
@@ -276,7 +289,7 @@
                         <span>${opt.label}</span>
                     </span>
                     <span class="flex items-center space-x-1.5 text-blue-400 group-hover:translate-x-0.5 transition-transform">
-                        <span>Download</span>
+                        <span>${i18n[currentLang].downloadBtn}</span>
                         <i class="fa-solid fa-download"></i>
                     </span>
                 `;
@@ -286,7 +299,7 @@
 
         function addHistory(url, type) {
             const historyList = document.getElementById('history-list');
-            const noHist = historyList.querySelector('.italic');
+            const noHist = document.getElementById('no-history-msg');
             if (noHist) noHist.remove();
 
             const item = document.createElement('div');
