@@ -158,19 +158,19 @@
 
         <!-- Platform Tabs -->
         <div class="grid grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-5" role="tablist">
-            <button type="button" onclick="switchTab('tiktok')" id="tab-tiktok" translate="no" class="notranslate platform-tab active flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+            <button type="button" onclick="switchTab('tiktok'); trackEvent('platform_select', { platform: 'tiktok' })" id="tab-tiktok" translate="no" class="notranslate platform-tab active flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
                 <i class="fa-brands fa-tiktok text-pink-400 text-sm sm:text-base"></i>
                 <span>TikTok</span>
             </button>
-            <button type="button" onclick="switchTab('facebook')" id="tab-facebook" translate="no" class="notranslate platform-tab flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+            <button type="button" onclick="switchTab('facebook'); trackEvent('platform_select', { platform: 'facebook' })" id="tab-facebook" translate="no" class="notranslate platform-tab flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
                 <i class="fa-brands fa-facebook text-blue-400 text-sm sm:text-base"></i>
                 <span>Facebook</span>
             </button>
-            <button type="button" onclick="switchTab('youtube')" id="tab-youtube" translate="no" class="notranslate platform-tab flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+            <button type="button" onclick="switchTab('youtube'); trackEvent('platform_select', { platform: 'youtube' })" id="tab-youtube" translate="no" class="notranslate platform-tab flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
                 <i class="fa-brands fa-youtube text-red-400 text-sm sm:text-base"></i>
                 <span>YouTube</span>
             </button>
-            <button type="button" onclick="switchTab('shorts')" id="tab-shorts" translate="no" class="notranslate platform-tab flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+            <button type="button" onclick="switchTab('shorts'); trackEvent('platform_select', { platform: 'shorts' })" id="tab-shorts" translate="no" class="notranslate platform-tab flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
                 <i class="fa-solid fa-bolt text-amber-400 text-sm sm:text-base"></i>
                 <span>Shorts</span>
             </button>
@@ -347,6 +347,25 @@
         let currentPlatform = 'tiktok';
         let currentLang = 'vi';
 
+        // GA4: chỉ gửi tên sự kiện và thuộc tính không chứa URL/video hay dữ liệu cá nhân.
+        function trackEvent(name, params = {}) {
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', name, params);
+            }
+        }
+
+        function getPlatformFromUrl(value) {
+            try {
+                const host = new URL(value).hostname.toLowerCase();
+                const path = new URL(value).pathname.toLowerCase();
+                if (host === 'tiktok.com' || host.endsWith('.tiktok.com')) return 'tiktok';
+                if (host === 'facebook.com' || host.endsWith('.facebook.com') || host === 'fb.watch') return 'facebook';
+                if (host === 'youtube.com' || host.endsWith('.youtube.com')) return path.startsWith('/shorts/') ? 'shorts' : 'youtube';
+                if (host === 'youtu.be') return 'youtube';
+            } catch (_) {}
+            return currentPlatform;
+        }
+
         const i18n = {
             vi: {
                 brandSub: "Tải video đa nền tảng",
@@ -407,6 +426,9 @@
         };
 
         function setLanguage(lang) {
+            if (lang !== currentLang) {
+                trackEvent('language_change', { language: lang });
+            }
             currentLang = lang;
             document.documentElement.lang = lang;
 
@@ -455,6 +477,7 @@
                 const text = await navigator.clipboard.readText();
                 if (text) {
                     input.value = text.trim();
+                    trackEvent('paste_link', { platform: getPlatformFromUrl(input.value), paste_method: 'button' });
                     toggleInputActionBtn();
                     detectPlatformFromUrl(text.trim());
                 }
@@ -463,6 +486,14 @@
                 input.focus();
             }
         }
+
+        document.getElementById('url-input').addEventListener('paste', () => {
+            // Chờ trình duyệt điền nội dung mới vào ô nhập.
+            setTimeout(() => {
+                const value = document.getElementById('url-input').value.trim();
+                if (value) trackEvent('paste_link', { platform: getPlatformFromUrl(value), paste_method: 'keyboard' });
+            }, 0);
+        });
 
         function detectPlatformFromUrl(url) {
             const lower = url.toLowerCase();
@@ -473,6 +504,7 @@
         }
 
         function switchTab(platform) {
+            // Chỉ đếm lựa chọn trực tiếp của người dùng, không đếm phát hiện URL tự động.
             currentPlatform = platform;
             ['tiktok', 'facebook', 'youtube', 'shorts'].forEach(p => {
                 const btn = document.getElementById(`tab-${p}`);
@@ -498,6 +530,7 @@
             }
 
             detectPlatformFromUrl(url);
+            trackEvent('download_click', { platform: currentPlatform });
             errorEl.classList.add('hidden');
             fetchBtn.disabled = true;
             fetchBtn.classList.add('opacity-70', 'cursor-not-allowed');
@@ -522,9 +555,11 @@
 
                 document.getElementById('loading-spinner').classList.add('hidden');
                 showResult(url, data);
+                trackEvent('extract_success', { platform: currentPlatform, format_count: Array.isArray(data.formats) ? data.formats.length : 0 });
             } catch (err) {
                 document.getElementById('loading-spinner').classList.add('hidden');
                 showError(err.message || i18n[currentLang].fetchError);
+                trackEvent('extract_error', { platform: currentPlatform });
             } finally {
                 fetchBtn.disabled = false;
                 fetchBtn.classList.remove('opacity-70', 'cursor-not-allowed');
@@ -549,6 +584,7 @@
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.onclick = () => {
+                    trackEvent('file_download_click', { platform: currentPlatform, file_type: isAudio ? 'audio' : 'video' });
                     window.location.href = proxyDownloadUrl;
                     addHistory(url, opt.label);
                 };
