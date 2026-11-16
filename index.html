@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>SaveVid — Tải video không kèm watermark trực tiếp từ liên kết</title>
-    <meta name="description" content="Tải video không kèm watermark trực tiếp từ liên kết hỗ trợ TikTok, Facebook, YouTube và YouTube Shorts chất lượng cao.">
+    <meta name="description" content="Tải video không kèm watermark trực tiếp từ liên kết. Hỗ trợ TikTok, Facebook, YouTube và Shorts chất lượng cao.">
+    <!-- Favicon SVG đồng bộ logo SaveVid -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M16 7v11m0 0l-4.5-4.5M16 18l4.5-4.5M9 22.5h14' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,98 +25,105 @@
     </script>
     <style>
         body {
-            background-color: #060913;
+            background-color: #050811;
             background-image:
-                radial-gradient(ellipse 80% 50% at 50% -15%, rgba(37, 99, 235, 0.22), transparent),
-                radial-gradient(ellipse 50% 40% at 85% 30%, rgba(79, 70, 229, 0.10), transparent);
+                radial-gradient(ellipse 75% 45% at 50% -10%, rgba(37, 99, 235, 0.24), transparent),
+                radial-gradient(ellipse 45% 35% at 85% 25%, rgba(6, 182, 212, 0.10), transparent);
         }
-        .surface-card {
-            background: rgba(13, 19, 36, 0.78);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+        .glass-card {
+            background: rgba(13, 19, 35, 0.78);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.55);
+            box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.6);
         }
-        .tab-btn {
+        .platform-tab {
             color: #94a3b8;
-            background: rgba(15, 23, 42, 0.65);
+            background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
-        .tab-btn:hover {
+        .platform-tab:hover {
             color: #f8fafc;
-            background: rgba(30, 41, 59, 0.85);
+            background: rgba(30, 41, 59, 0.8);
             border-color: rgba(255, 255, 255, 0.14);
         }
-        .tab-btn.active {
+        .platform-tab.active {
             color: #ffffff;
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            border-color: rgba(96, 165, 250, 0.5);
-            box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.45);
+            border-color: rgba(96, 165, 250, 0.55);
+            box-shadow: 0 8px 22px -4px rgba(37, 99, 235, 0.45);
         }
-        .tab-btn.active i {
+        .platform-tab.active i {
             color: #ffffff !important;
         }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-blue-600 selection:text-white">
 
-    <!-- Top Navigation -->
-    <header class="border-b border-white/[0.07] bg-[#060913]/80 sticky top-0 z-50 backdrop-blur-xl">
+    <!-- Header -->
+    <header class="border-b border-white/[0.07] bg-[#050811]/80 sticky top-0 z-50 backdrop-blur-xl">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
             <!-- Brand Logo -->
             <a href="#" class="flex items-center space-x-3 group focus:outline-none">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-blue-600/25 ring-1 ring-white/15 group-hover:scale-105 transition-transform">
-                    <i class="fa-solid fa-arrow-down-to-line text-white text-base"></i>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-600/25 ring-1 ring-white/20 group-hover:scale-105 transition-transform">
+                    <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12 4V15.5M12 15.5L7.5 11M12 15.5L16.5 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 17.5V18.5C5 19.6046 5.89543 20.5 7 20.5H17C18.1046 20.5 19 19.6046 19 18.5V17.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                    </svg>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-lg sm:text-xl font-extrabold tracking-tight text-white leading-none">SaveVid</span>
-                    <span class="text-[11px] text-slate-400 font-medium mt-1" data-i18n="brandSub">Công cụ tải video trực tuyến</span>
+                    <span translate="no" class="notranslate text-lg sm:text-xl font-extrabold tracking-tight text-white leading-none">
+                        Save<span class="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">Vid</span>
+                    </span>
+                    <span class="text-[11px] text-slate-400 font-medium mt-1" data-i18n="brandSub">Tải video đa nền tảng</span>
                 </div>
             </a>
 
             <!-- Language Switcher -->
             <div class="flex items-center bg-slate-900/95 border border-white/10 rounded-full p-1 shadow-inner" role="group" aria-label="Language Switcher">
-                <button type="button" onclick="setLanguage('vi')" id="lang-vi-btn" class="px-3.5 py-1 text-xs font-bold rounded-full transition-all bg-blue-600 text-white shadow-sm cursor-pointer">VI</button>
-                <button type="button" onclick="setLanguage('en')" id="lang-en-btn" class="px-3.5 py-1 text-xs font-bold rounded-full transition-all text-slate-400 hover:text-white cursor-pointer">EN</button>
+                <button type="button" onclick="setLanguage('vi')" id="lang-vi-btn" translate="no" class="notranslate px-3.5 py-1 text-xs font-bold rounded-full transition-all bg-blue-600 text-white shadow-sm cursor-pointer">VI</button>
+                <button type="button" onclick="setLanguage('en')" id="lang-en-btn" translate="no" class="notranslate px-3.5 py-1 text-xs font-bold rounded-full transition-all text-slate-400 hover:text-white cursor-pointer">EN</button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main Container -->
     <main class="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14 pb-16">
         
         <!-- Hero Section -->
         <section class="text-center mb-8 sm:mb-10">
-            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-semibold mb-4">
-                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
-                <span data-i18n="heroBadge">Hỗ trợ TikTok • Facebook • YouTube • Shorts</span>
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-semibold mb-4 shadow-sm">
+                <i class="fa-solid fa-sparkles text-[11px] text-cyan-400"></i>
+                <span data-i18n="heroBadge">Miễn phí • Tốc độ cao • Giữ nguyên chất lượng gốc</span>
             </div>
-            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-3.5">SaveVid</h1>
-            <p class="text-slate-300/90 max-w-xl mx-auto text-sm sm:text-base leading-relaxed font-normal" data-i18n="heroDesc">Tải video không kèm watermark trực tiếp từ liên kết.</p>
+            <h1 translate="no" class="notranslate text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-3.5">
+                Save<span class="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">Vid</span>
+            </h1>
+            <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base leading-relaxed font-normal" data-i18n="heroDesc">Tải video không kèm watermark trực tiếp từ liên kết.</p>
         </section>
 
-        <!-- Platform Selector Tabs -->
+        <!-- Platform Tabs -->
         <div class="grid grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-5" role="tablist">
-            <button type="button" onclick="switchTab('tiktok')" id="tab-tiktok" class="tab-btn active flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+            <button type="button" onclick="switchTab('tiktok')" id="tab-tiktok" translate="no" class="notranslate platform-tab active flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
                 <i class="fa-brands fa-tiktok text-pink-400 text-sm sm:text-base"></i>
                 <span>TikTok</span>
             </button>
-            <button type="button" onclick="switchTab('facebook')" id="tab-facebook" class="tab-btn flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+            <button type="button" onclick="switchTab('facebook')" id="tab-facebook" translate="no" class="notranslate platform-tab flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
                 <i class="fa-brands fa-facebook text-blue-400 text-sm sm:text-base"></i>
                 <span>Facebook</span>
             </button>
-            <button type="button" onclick="switchTab('youtube')" id="tab-youtube" class="tab-btn flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+            <button type="button" onclick="switchTab('youtube')" id="tab-youtube" translate="no" class="notranslate platform-tab flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
                 <i class="fa-brands fa-youtube text-red-400 text-sm sm:text-base"></i>
                 <span>YouTube</span>
             </button>
-            <button type="button" onclick="switchTab('shorts')" id="tab-shorts" class="tab-btn flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+            <button type="button" onclick="switchTab('shorts')" id="tab-shorts" translate="no" class="notranslate platform-tab flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
                 <i class="fa-solid fa-bolt text-amber-400 text-sm sm:text-base"></i>
                 <span>Shorts</span>
             </button>
         </div>
 
-        <!-- URL Input Card -->
-        <section class="surface-card p-4 sm:p-6 rounded-2xl mb-6 sm:mb-8">
+        <!-- URL Input Box -->
+        <section class="glass-card p-4 sm:p-6 rounded-2xl mb-6">
             <div class="flex flex-col sm:flex-row gap-3">
                 <div class="relative flex-1 flex items-center">
                     <span class="absolute left-4 text-slate-500 pointer-events-none">
@@ -127,8 +136,8 @@
                         spellcheck="false"
                         oninput="toggleInputActionBtn()"
                         onkeydown="if(event.key === 'Enter') handleFetch()"
-                        class="w-full bg-[#070b16] border border-white/10 rounded-xl py-3.5 sm:py-4 pl-11 pr-20 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
-                        placeholder="Dán liên kết video vào đây..."
+                        class="w-full bg-[#060a14] border border-white/10 rounded-xl py-3.5 sm:py-4 pl-11 pr-20 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                        placeholder="Dán liên kết TikTok, Facebook, YouTube hoặc Shorts..."
                     >
                     <button
                         type="button"
@@ -145,33 +154,49 @@
                     type="button"
                     onclick="handleFetch()"
                     id="fetch-btn"
-                    class="bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-bold px-7 py-3.5 sm:py-4 rounded-xl transition-all flex items-center justify-center space-x-2 shadow-lg shadow-blue-600/25 text-sm cursor-pointer whitespace-nowrap"
+                    class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 active:scale-[0.99] text-white font-bold px-7 py-3.5 sm:py-4 rounded-xl transition-all flex items-center justify-center space-x-2 shadow-lg shadow-blue-600/25 text-sm cursor-pointer whitespace-nowrap"
                 >
-                    <span data-i18n="extractBtn">Trích xuất</span>
+                    <span data-i18n="extractBtn">Tải ngay</span>
                     <i class="fa-solid fa-arrow-right text-xs"></i>
                 </button>
             </div>
 
-            <!-- Validation / API Error Alert -->
+            <!-- Error Alert -->
             <div id="error-msg" class="mt-3.5 p-3 rounded-xl bg-rose-500/10 border border-rose-500/25 text-rose-300 text-xs hidden flex items-start space-x-2 leading-relaxed">
                 <i class="fa-solid fa-circle-exclamation text-rose-400 mt-0.5 flex-shrink-0"></i>
                 <span id="error-text"></span>
             </div>
         </section>
 
-        <!-- Loading State -->
-        <div id="loading-spinner" class="hidden surface-card p-10 sm:p-14 rounded-2xl mb-8 text-center">
+        <!-- Feature Highlights Strip -->
+        <div class="grid grid-cols-3 gap-2 sm:gap-4 mb-8 text-center">
+            <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+                <i class="fa-solid fa-droplet-slash text-blue-400 text-xs sm:text-sm mb-1 block"></i>
+                <span class="text-[11px] sm:text-xs text-slate-300 font-medium block" data-i18n="feat1">Không dính logo</span>
+            </div>
+            <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+                <i class="fa-solid fa-high-definition text-cyan-400 text-xs sm:text-sm mb-1 block"></i>
+                <span class="text-[11px] sm:text-xs text-slate-300 font-medium block" data-i18n="feat2">Video HD & Nhạc MP3</span>
+            </div>
+            <div class="px-2.5 py-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+                <i class="fa-solid fa-mobile-screen-button text-indigo-400 text-xs sm:text-sm mb-1 block"></i>
+                <span class="text-[11px] sm:text-xs text-slate-300 font-medium block" data-i18n="feat3">Mọi thiết bị</span>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loading-spinner" class="hidden glass-card p-10 sm:p-14 rounded-2xl mb-8 text-center">
             <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
                 <div class="w-6 h-6 rounded-full border-2 border-blue-400 border-t-transparent animate-spin"></div>
             </div>
-            <p class="text-slate-200 text-sm font-semibold mb-1" data-i18n="processingTitle">Đang phân tích liên kết...</p>
-            <p class="text-slate-400 text-xs" data-i18n="processingSub">Hệ thống đang trích xuất các luồng video và âm thanh chất lượng cao.</p>
+            <p class="text-slate-200 text-sm font-semibold mb-1" data-i18n="processingTitle">Đang xử lý liên kết...</p>
+            <p class="text-slate-400 text-xs" data-i18n="processingSub">Vui lòng chờ trong giây lát, hệ thống đang tìm chất lượng tốt nhất.</p>
         </div>
 
-        <!-- Extraction Result Card -->
-        <section id="result-section" class="hidden surface-card p-5 sm:p-7 rounded-2xl mb-8 transition-all">
+        <!-- Result Card -->
+        <section id="result-section" class="hidden glass-card p-5 sm:p-7 rounded-2xl mb-8 transition-all">
             <div class="flex flex-col sm:flex-row gap-5 sm:gap-6 items-start">
-                <!-- Media Thumbnail -->
+                <!-- Thumbnail -->
                 <div class="w-full sm:w-52 aspect-video sm:aspect-auto sm:h-36 bg-slate-900 rounded-xl overflow-hidden border border-white/10 relative flex-shrink-0 shadow-md">
                     <img
                         id="res-thumbnail"
@@ -187,20 +212,20 @@
                     </div>
                 </div>
 
-                <!-- Media Metadata & Download Formats -->
+                <!-- Details & Formats -->
                 <div class="flex-1 w-full min-w-0">
                     <div class="flex flex-wrap items-center gap-2 mb-2.5">
-                        <span id="res-platform" class="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-blue-500/15 text-blue-300 border border-blue-400/25 uppercase tracking-wider">TIKTOK</span>
+                        <span id="res-platform" translate="no" class="notranslate text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-blue-500/15 text-blue-300 border border-blue-400/25 uppercase tracking-wider">TIKTOK</span>
                         <span class="inline-flex items-center space-x-1 text-xs text-emerald-400 font-medium">
                             <i class="fa-solid fa-circle-check text-[11px]"></i>
-                            <span data-i18n="readyStatus">Sẵn sàng tải xuống</span>
+                            <span data-i18n="readyStatus">Đã sẵn sàng</span>
                         </span>
                     </div>
                     
                     <h2 id="res-title" class="text-base sm:text-lg font-bold text-white mb-4 line-clamp-2 leading-snug">Tiêu đề video</h2>
                     
                     <div class="space-y-2.5">
-                        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="selectFormat">Chọn định dạng tải về:</p>
+                        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="selectFormat">Chọn chất lượng tệp:</p>
                         <div class="grid grid-cols-1 gap-2.5" id="format-options"></div>
                     </div>
                 </div>
@@ -208,26 +233,26 @@
         </section>
 
         <!-- Session History -->
-        <section class="surface-card p-5 sm:p-6 rounded-2xl">
+        <section class="glass-card p-5 sm:p-6 rounded-2xl">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-2">
                     <i class="fa-solid fa-clock-rotate-left text-blue-400"></i>
-                    <span data-i18n="historyTitle">Lịch sử trích xuất trong phiên</span>
+                    <span data-i18n="historyTitle">Lịch sử tải gần đây</span>
                 </h3>
                 <div class="flex items-center space-x-3">
-                    <span class="hidden sm:inline text-[11px] text-slate-500 font-medium" data-i18n="historyNote">Lưu tạm trên trình duyệt</span>
+                    <span class="hidden sm:inline text-[11px] text-slate-500 font-medium" data-i18n="historyNote">Chỉ lưu trong phiên này</span>
                     <button type="button" id="clear-history-btn" onclick="clearHistory()" class="hidden text-xs text-slate-400 hover:text-rose-400 font-semibold transition-colors cursor-pointer" data-i18n="clearHistory">Xóa tất cả</button>
                 </div>
             </div>
             <div id="history-list" class="space-y-2">
-                <p class="text-xs text-slate-500 py-2" id="no-history-msg" data-i18n="noHistory">Chưa có liên kết nào được tải xuống trong phiên làm việc này.</p>
+                <p class="text-xs text-slate-500 py-2" id="no-history-msg" data-i18n="noHistory">Chưa có video nào được tải trong phiên này.</p>
             </div>
         </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/[0.06] py-6 px-4 text-center text-xs text-slate-500 bg-[#05070f]/80">
+    <footer class="border-t border-white/[0.06] py-6 px-4 text-center text-xs text-slate-500 bg-[#04060d]/90">
         <p data-i18n="footer">&copy; 2026 SaveVid. Tải video không kèm watermark trực tiếp từ liên kết.</p>
     </footer>
 
@@ -241,47 +266,53 @@
 
         const i18n = {
             vi: {
-                brandSub: "Công cụ tải video trực tuyến",
-                heroBadge: "Hỗ trợ TikTok • Facebook • YouTube • Shorts",
+                brandSub: "Tải video đa nền tảng",
+                heroBadge: "Miễn phí • Tốc độ cao • Giữ nguyên chất lượng gốc",
                 heroDesc: "Tải video không kèm watermark trực tiếp từ liên kết.",
-                placeholder: "Dán liên kết video vào đây...",
+                placeholder: "Dán liên kết TikTok, Facebook, YouTube hoặc Shorts...",
                 pasteBtn: "Dán",
                 clearBtn: "Xóa",
-                extractBtn: "Trích xuất",
-                processingTitle: "Đang phân tích liên kết...",
-                processingSub: "Hệ thống đang trích xuất các luồng video và âm thanh chất lượng cao.",
-                readyStatus: "Sẵn sàng tải xuống",
-                selectFormat: "Chọn định dạng tải về:",
-                downloadBtn: "Tải xuống",
-                historyTitle: "Lịch sử trích xuất trong phiên",
-                historyNote: "Lưu tạm trên trình duyệt",
+                extractBtn: "Tải ngay",
+                feat1: "Không dính logo",
+                feat2: "Video HD & Nhạc MP3",
+                feat3: "Mọi thiết bị",
+                processingTitle: "Đang xử lý liên kết...",
+                processingSub: "Vui lòng chờ trong giây lát, hệ thống đang tìm chất lượng tốt nhất.",
+                readyStatus: "Đã sẵn sàng",
+                selectFormat: "Chọn chất lượng tệp:",
+                downloadBtn: "Tải về",
+                historyTitle: "Lịch sử tải gần đây",
+                historyNote: "Chỉ lưu trong phiên này",
                 clearHistory: "Xóa tất cả",
-                noHistory: "Chưa có liên kết nào được tải xuống trong phiên làm việc này.",
+                noHistory: "Chưa có video nào được tải trong phiên này.",
                 footer: "© 2026 SaveVid. Tải video không kèm watermark trực tiếp từ liên kết.",
-                invalidUrl: "Vui lòng nhập đường dẫn hợp lệ bắt đầu bằng http:// hoặc https://.",
-                fetchError: "Không thể trích xuất dữ liệu từ máy chủ. Vui lòng kiểm tra liên kết và thử lại.",
-                clipboardDenied: "Trình duyệt chưa cấp quyền đọc bộ nhớ tạm. Vui lòng dán thủ công vào ô nhập."
+                invalidUrl: "Liên kết chưa đúng định dạng. Vui lòng dán đường dẫn bắt đầu bằng http:// hoặc https://.",
+                fetchError: "Không thể lấy thông tin video từ liên kết này. Vui lòng kiểm tra lại hoặc thử liên kết khác.",
+                clipboardDenied: "Trình duyệt chưa cấp quyền đọc bộ nhớ tạm. Bạn hãy dán trực tiếp vào ô bên trái nhé."
             },
             en: {
-                brandSub: "Online Video Downloader",
-                heroBadge: "Supports TikTok • Facebook • YouTube • Shorts",
+                brandSub: "Multi-Platform Video Saver",
+                heroBadge: "Free • High-Speed • Original Quality",
                 heroDesc: "Download watermark-free videos directly from links.",
-                placeholder: "Paste video link here...",
+                placeholder: "Paste a TikTok, Facebook, YouTube, or Shorts link...",
                 pasteBtn: "Paste",
                 clearBtn: "Clear",
-                extractBtn: "Extract",
-                processingTitle: "Analyzing link...",
-                processingSub: "Extracting high-quality video and audio streams.",
-                readyStatus: "Ready to download",
-                selectFormat: "Select download format:",
-                downloadBtn: "Download",
-                historyTitle: "Session Extraction History",
-                historyNote: "Stored temporarily in browser",
+                extractBtn: "Download",
+                feat1: "No Watermark",
+                feat2: "HD Video & MP3 Audio",
+                feat3: "All Devices",
+                processingTitle: "Processing your link...",
+                processingSub: "Please wait a moment while we fetch the best available quality.",
+                readyStatus: "Ready",
+                selectFormat: "Choose quality & format:",
+                downloadBtn: "Save file",
+                historyTitle: "Recent Downloads",
+                historyNote: "Session only",
                 clearHistory: "Clear all",
-                noHistory: "No media links have been downloaded in this session yet.",
+                noHistory: "No videos downloaded in this session yet.",
                 footer: "© 2026 SaveVid. Download watermark-free videos directly from links.",
-                invalidUrl: "Please enter a valid URL starting with http:// or https://.",
-                fetchError: "Unable to extract media from the server. Please verify the link and try again.",
+                invalidUrl: "Invalid link format. Please paste a URL starting with http:// or https://.",
+                fetchError: "Could not retrieve video details from this link. Please verify the URL and try again.",
                 clipboardDenied: "Clipboard access was blocked by your browser. Please paste the link manually."
             }
         };
@@ -290,8 +321,8 @@
             currentLang = lang;
             document.documentElement.lang = lang;
 
-            const activeBtnClass = 'px-3.5 py-1 text-xs font-bold rounded-full transition-all bg-blue-600 text-white shadow-sm cursor-pointer';
-            const inactiveBtnClass = 'px-3.5 py-1 text-xs font-bold rounded-full transition-all text-slate-400 hover:text-white cursor-pointer';
+            const activeBtnClass = 'notranslate px-3.5 py-1 text-xs font-bold rounded-full transition-all bg-blue-600 text-white shadow-sm cursor-pointer';
+            const inactiveBtnClass = 'notranslate px-3.5 py-1 text-xs font-bold rounded-full transition-all text-slate-400 hover:text-white cursor-pointer';
 
             document.getElementById('lang-vi-btn').className = lang === 'vi' ? activeBtnClass : inactiveBtnClass;
             document.getElementById('lang-en-btn').className = lang === 'en' ? activeBtnClass : inactiveBtnClass;
@@ -433,7 +464,7 @@
                     addHistory(url, opt.label);
                 };
 
-                btn.className = 'w-full flex items-center justify-between px-4 py-3.5 rounded-xl border border-white/10 bg-[#080d1a] hover:bg-blue-600/15 hover:border-blue-500/50 active:scale-[0.99] transition-all text-xs sm:text-sm font-semibold text-slate-100 group cursor-pointer text-left';
+                btn.className = 'w-full flex items-center justify-between px-4 py-3.5 rounded-xl border border-white/10 bg-[#070b17] hover:bg-blue-600/15 hover:border-blue-500/50 active:scale-[0.99] transition-all text-xs sm:text-sm font-semibold text-slate-100 group cursor-pointer text-left';
                 btn.innerHTML = `
                     <span class="flex items-center space-x-3 min-w-0 pr-2">
                         <span class="w-8 h-8 rounded-lg ${isAudio ? 'bg-emerald-500/15 text-emerald-400' : 'bg-blue-500/15 text-blue-400'} flex items-center justify-center flex-shrink-0">
@@ -458,7 +489,7 @@
             document.getElementById('clear-history-btn').classList.remove('hidden');
 
             const item = document.createElement('div');
-            item.className = 'flex items-center justify-between gap-3 p-3 rounded-xl bg-[#080d1a]/90 border border-white/[0.06] text-xs';
+            item.className = 'flex items-center justify-between gap-3 p-3 rounded-xl bg-[#070b17]/90 border border-white/[0.06] text-xs';
             item.innerHTML = `
                 <span class="truncate text-slate-300 font-medium flex-1 min-w-0">${url}</span>
                 <span class="text-blue-300 font-semibold px-2.5 py-1 rounded-md bg-blue-500/10 border border-blue-400/20 flex-shrink-0">${label}</span>
