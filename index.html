@@ -59,6 +59,8 @@
       ]
     }
     </script>
+    <!-- BỔ SUNG SEO: từ khóa theo mục đích tìm kiếm, không nhồi từ khóa ẩn -->
+    <meta name="keywords" content="tải video TikTok, tải video TikTok không logo, tải TikTok không watermark, tải video Facebook, tải Facebook Reels, tải video YouTube, tải YouTube Shorts, tải video Instagram, tải Instagram Reels, tải video Douyin, tải video 抖音, tải video không watermark, tải video HD, tải video MP4, tải nhạc MP3, video downloader, TikTok downloader, Instagram downloader, Douyin downloader, download video without watermark, SaveVid">
     <!-- Favicon SVG đồng bộ logo SaveVid -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M16 7v11m0 0l-4.5-4.5M16 18l4.5-4.5M9 22.5h14' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -174,6 +176,12 @@
                 <i class="fa-solid fa-bolt text-amber-400 text-sm sm:text-base"></i>
                 <span>Shorts</span>
             </button>
+        </div>
+
+        <!-- BỔ SUNG: Instagram và Douyin (giữ nguyên bốn tab gốc) -->
+        <div class="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-5" role="group" aria-label="Nền tảng bổ sung">
+            <button type="button" onclick="switchTab('instagram'); trackEvent('platform_select', { platform: 'instagram' })" id="tab-instagram" class="platform-tab flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer"><i class="fa-brands fa-instagram text-pink-400"></i><span>Instagram</span></button>
+            <button type="button" onclick="switchTab('douyin'); trackEvent('platform_select', { platform: 'douyin' })" id="tab-douyin" class="platform-tab flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer"><i class="fa-solid fa-video text-cyan-400"></i><span>Douyin (抖音)</span></button>
         </div>
 
         <!-- URL Input Box -->
@@ -303,6 +311,35 @@
             </div>
         </section>
 
+        <!-- BỔ SUNG: Giới thiệu, hướng dẫn và FAQ; nội dung hiển thị để hỗ trợ SEO -->
+        <section id="about-savevid" class="mt-10 glass-card p-5 sm:p-7 rounded-2xl" aria-labelledby="about-title">
+            <h2 id="about-title" class="text-xl sm:text-2xl font-extrabold text-white mb-3" data-extra-vi="SaveVid là gì?" data-extra-en="What is SaveVid?">SaveVid là gì?</h2>
+            <p class="text-sm text-slate-300 leading-7" data-extra-vi="SaveVid là công cụ web giúp bạn nhập liên kết video và xem các định dạng tải có sẵn từ nguồn được hỗ trợ. Giao diện đơn giản, sử dụng trực tiếp trên điện thoại hoặc máy tính, không cần cài đặt phần mềm. Chất lượng và khả năng tải phụ thuộc vào từng nền tảng, quyền truy cập nội dung và dữ liệu do dịch vụ cung cấp." data-extra-en="SaveVid is a web tool for submitting a video link and viewing available download formats from supported sources. It works in your browser on mobile or desktop without installing software. Available formats and download support depend on the platform, content permissions, and the data returned by the service.">SaveVid là công cụ web giúp bạn nhập liên kết video và xem các định dạng tải có sẵn từ nguồn được hỗ trợ. Giao diện đơn giản, sử dụng trực tiếp trên điện thoại hoặc máy tính, không cần cài đặt phần mềm. Chất lượng và khả năng tải phụ thuộc vào từng nền tảng, quyền truy cập nội dung và dữ liệu do dịch vụ cung cấp.</p>
+            <h3 class="text-base font-bold text-white mt-5 mb-2" data-extra-vi="Các nền tảng và định dạng" data-extra-en="Platforms and formats">Các nền tảng và định dạng</h3>
+            <p class="text-sm text-slate-300 leading-7" data-extra-vi="Bạn có thể thử lấy liên kết tải video TikTok không logo, video Facebook và Facebook Reels, video YouTube và YouTube Shorts, Instagram Reels hoặc video Douyin (抖音). Các lựa chọn MP4, HD, Full HD hay âm thanh MP3 chỉ xuất hiện khi hệ thống nhận được định dạng tương ứng. Instagram và Douyin cần được API máy chủ hỗ trợ để hoạt động thực tế." data-extra-en="You can try links from TikTok, Facebook and Facebook Reels, YouTube and YouTube Shorts, Instagram Reels, or Douyin (抖音). MP4, HD, Full HD and MP3 options appear only when the service returns those formats. Instagram and Douyin require corresponding server API support to work.">Bạn có thể thử lấy liên kết tải video TikTok không logo, video Facebook và Facebook Reels, video YouTube và YouTube Shorts, Instagram Reels hoặc video Douyin (抖音). Các lựa chọn MP4, HD, Full HD hay âm thanh MP3 chỉ xuất hiện khi hệ thống nhận được định dạng tương ứng. Instagram và Douyin cần được API máy chủ hỗ trợ để hoạt động thực tế.</p>
+        </section>
+
+        <section id="how-to-download" class="mt-6 glass-card p-5 sm:p-7 rounded-2xl" aria-labelledby="how-title">
+            <h2 id="how-title" class="text-xl sm:text-2xl font-extrabold text-white mb-5" data-extra-vi="Hướng dẫn tải video với SaveVid" data-extra-en="How to download videos with SaveVid">Hướng dẫn tải video với SaveVid</h2>
+            <ol class="space-y-4">
+                <li class="flex gap-3"><span class="w-8 h-8 shrink-0 rounded-lg bg-blue-600/20 text-blue-300 flex items-center justify-center font-bold">1</span><div><h3 class="font-bold text-white text-sm" data-extra-vi="Sao chép liên kết" data-extra-en="Copy the link">Sao chép liên kết</h3><p class="text-slate-400 text-sm mt-1" data-extra-vi="Mở video bạn có quyền tải hoặc lưu, chọn Chia sẻ và sao chép URL." data-extra-en="Open a video you are allowed to save, select Share and copy its URL.">Mở video bạn có quyền tải hoặc lưu, chọn Chia sẻ và sao chép URL.</p></div></li>
+                <li class="flex gap-3"><span class="w-8 h-8 shrink-0 rounded-lg bg-blue-600/20 text-blue-300 flex items-center justify-center font-bold">2</span><div><h3 class="font-bold text-white text-sm" data-extra-vi="Dán URL vào SaveVid" data-extra-en="Paste the URL into SaveVid">Dán URL vào SaveVid</h3><p class="text-slate-400 text-sm mt-1" data-extra-vi="Chọn nền tảng tương ứng, dán liên kết vào ô nhập phía trên rồi nhấn Tải ngay." data-extra-en="Select the relevant platform, paste the link into the field above and press Download.">Chọn nền tảng tương ứng, dán liên kết vào ô nhập phía trên rồi nhấn Tải ngay.</p></div></li>
+                <li class="flex gap-3"><span class="w-8 h-8 shrink-0 rounded-lg bg-blue-600/20 text-blue-300 flex items-center justify-center font-bold">3</span><div><h3 class="font-bold text-white text-sm" data-extra-vi="Chọn chất lượng và lưu tệp" data-extra-en="Choose a format and save">Chọn chất lượng và lưu tệp</h3><p class="text-slate-400 text-sm mt-1" data-extra-vi="Nếu xử lý thành công, chọn định dạng video hoặc âm thanh khả dụng rồi nhấn Tải về. Độ phân giải chỉ hiển thị khi API trả về thông tin đó." data-extra-en="If processing succeeds, select an available video or audio format and press Save file. Resolution is displayed only when the API provides it.">Nếu xử lý thành công, chọn định dạng video hoặc âm thanh khả dụng rồi nhấn Tải về. Độ phân giải chỉ hiển thị khi API trả về thông tin đó.</p></div></li>
+            </ol>
+        </section>
+
+        <section id="faq" class="mt-6 glass-card p-5 sm:p-7 rounded-2xl" aria-labelledby="faq-title">
+            <h2 id="faq-title" class="text-xl sm:text-2xl font-extrabold text-white mb-4" data-extra-vi="Câu hỏi thường gặp (FAQ)" data-extra-en="Frequently asked questions (FAQ)">Câu hỏi thường gặp (FAQ)</h2>
+            <div class="space-y-3">
+                <details class="group rounded-xl border border-white/10 bg-white/[0.02] p-4"><summary class="cursor-pointer font-semibold text-sm text-white" data-extra-vi="SaveVid có miễn phí không?" data-extra-en="Is SaveVid free?">SaveVid có miễn phí không?</summary><p class="text-slate-300 text-sm leading-6 mt-3" data-extra-vi="SaveVid hiện cung cấp giao diện sử dụng miễn phí. Khả năng tải phụ thuộc vào nguồn video và dịch vụ xử lý." data-extra-en="SaveVid currently provides a free-to-use interface. Download availability depends on the source and processing service.">SaveVid hiện cung cấp giao diện sử dụng miễn phí. Khả năng tải phụ thuộc vào nguồn video và dịch vụ xử lý.</p></details>
+                <details class="group rounded-xl border border-white/10 bg-white/[0.02] p-4"><summary class="cursor-pointer font-semibold text-sm text-white" data-extra-vi="Làm sao tải video TikTok không logo?" data-extra-en="How can I download a TikTok video without a watermark?">Làm sao tải video TikTok không logo?</summary><p class="text-slate-300 text-sm leading-6 mt-3" data-extra-vi="Sao chép liên kết TikTok, dán vào SaveVid và chọn phiên bản không watermark nếu nguồn trả về lựa chọn này. Không phải video nào cũng có bản không logo." data-extra-en="Copy a TikTok link, paste it into SaveVid and select a watermark-free option if one is available. Not every video has a watermark-free version.">Sao chép liên kết TikTok, dán vào SaveVid và chọn phiên bản không watermark nếu nguồn trả về lựa chọn này. Không phải video nào cũng có bản không logo.</p></details>
+                <details class="group rounded-xl border border-white/10 bg-white/[0.02] p-4"><summary class="cursor-pointer font-semibold text-sm text-white" data-extra-vi="SaveVid có tải Instagram Reels và Douyin không?" data-extra-en="Does SaveVid support Instagram Reels and Douyin?">SaveVid có tải Instagram Reels và Douyin không?</summary><p class="text-slate-300 text-sm leading-6 mt-3" data-extra-vi="Giao diện có mục Instagram và Douyin để gửi liên kết. Việc trích xuất và tải được video chỉ khả dụng sau khi API máy chủ hỗ trợ các nền tảng này." data-extra-en="The interface includes Instagram and Douyin link options. Extraction and downloading will work only when the server API supports these platforms.">Giao diện có mục Instagram và Douyin để gửi liên kết. Việc trích xuất và tải được video chỉ khả dụng sau khi API máy chủ hỗ trợ các nền tảng này.</p></details>
+                <details class="group rounded-xl border border-white/10 bg-white/[0.02] p-4"><summary class="cursor-pointer font-semibold text-sm text-white" data-extra-vi="Có thể tải video Full HD hoặc MP3 không?" data-extra-en="Can I download Full HD video or MP3 audio?">Có thể tải video Full HD hoặc MP3 không?</summary><p class="text-slate-300 text-sm leading-6 mt-3" data-extra-vi="Bạn có thể chọn Full HD, HD, MP4 hoặc MP3 khi các định dạng đó xuất hiện trong kết quả. SaveVid không tự nâng độ phân giải hoặc tạo MP3 nếu dịch vụ không cung cấp." data-extra-en="You can choose Full HD, HD, MP4 or MP3 when those formats appear in the results. SaveVid does not upscale video or create MP3 files when the service does not provide them.">Bạn có thể chọn Full HD, HD, MP4 hoặc MP3 khi các định dạng đó xuất hiện trong kết quả. SaveVid không tự nâng độ phân giải hoặc tạo MP3 nếu dịch vụ không cung cấp.</p></details>
+                <details class="group rounded-xl border border-white/10 bg-white/[0.02] p-4"><summary class="cursor-pointer font-semibold text-sm text-white" data-extra-vi="Tại sao liên kết không tải được?" data-extra-en="Why is my link not working?">Tại sao liên kết không tải được?</summary><p class="text-slate-300 text-sm leading-6 mt-3" data-extra-vi="Nguyên nhân có thể là liên kết sai, video riêng tư hoặc đã xóa, giới hạn nền tảng, hoặc API đang gặp lỗi. Hãy kiểm tra URL và thử lại với video công khai mà bạn có quyền sử dụng." data-extra-en="Possible reasons include an invalid URL, private or deleted content, platform restrictions or a server API error. Check the URL and retry with public content you are permitted to use.">Nguyên nhân có thể là liên kết sai, video riêng tư hoặc đã xóa, giới hạn nền tảng, hoặc API đang gặp lỗi. Hãy kiểm tra URL và thử lại với video công khai mà bạn có quyền sử dụng.</p></details>
+                <details class="group rounded-xl border border-white/10 bg-white/[0.02] p-4"><summary class="cursor-pointer font-semibold text-sm text-white" data-extra-vi="Tải video có cần xin phép chủ sở hữu không?" data-extra-en="Do I need permission to download videos?">Tải video có cần xin phép chủ sở hữu không?</summary><p class="text-slate-300 text-sm leading-6 mt-3" data-extra-vi="Bạn cần tuân thủ quyền tác giả, điều khoản của nền tảng và chỉ tải hoặc sử dụng nội dung khi có quyền hoặc được pháp luật cho phép." data-extra-en="You must respect copyright, platform terms and download or use content only when you have permission or a lawful basis.">Bạn cần tuân thủ quyền tác giả, điều khoản của nền tảng và chỉ tải hoặc sử dụng nội dung khi có quyền hoặc được pháp luật cho phép.</p></details>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
@@ -362,6 +399,8 @@
                 if (host === 'facebook.com' || host.endsWith('.facebook.com') || host === 'fb.watch') return 'facebook';
                 if (host === 'youtube.com' || host.endsWith('.youtube.com')) return path.startsWith('/shorts/') ? 'shorts' : 'youtube';
                 if (host === 'youtu.be') return 'youtube';
+                if (host === 'instagram.com' || host.endsWith('.instagram.com')) return 'instagram';
+                if (host === 'douyin.com' || host.endsWith('.douyin.com') || host === 'iesdouyin.com' || host.endsWith('.iesdouyin.com')) return 'douyin';
             } catch (_) {}
             return currentPlatform;
         }
@@ -501,12 +540,14 @@
             else if (lower.includes('facebook.com') || lower.includes('fb.watch')) switchTab('facebook');
             else if (lower.includes('youtube.com/shorts')) switchTab('shorts');
             else if (lower.includes('youtube.com') || lower.includes('youtu.be')) switchTab('youtube');
+            else if (lower.includes('instagram.com')) switchTab('instagram');
+            else if (lower.includes('douyin.com') || lower.includes('iesdouyin.com')) switchTab('douyin');
         }
 
         function switchTab(platform) {
             // Chỉ đếm lựa chọn trực tiếp của người dùng, không đếm phát hiện URL tự động.
             currentPlatform = platform;
-            ['tiktok', 'facebook', 'youtube', 'shorts'].forEach(p => {
+            ['tiktok', 'facebook', 'youtube', 'shorts', 'instagram', 'douyin'].forEach(p => {
                 const btn = document.getElementById(`tab-${p}`);
                 btn.classList.toggle('active', p === platform);
             });
@@ -657,6 +698,18 @@
                 label.classList.remove('truncate');
                 label.classList.add('min-w-0', 'break-words');
                 label.appendChild(detail);
+            });
+        };
+    })();
+    </script>
+    <!-- BỔ SUNG: chuyển ngôn ngữ cho nội dung mới, không can thiệp logic tải gốc -->
+    <script>
+    (function () {
+        const originalSetLanguage = setLanguage;
+        setLanguage = function (lang) {
+            originalSetLanguage(lang);
+            document.querySelectorAll('[data-extra-vi][data-extra-en]').forEach(function (el) {
+                el.textContent = el.getAttribute('data-extra-' + lang);
             });
         };
     })();
