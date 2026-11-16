@@ -2,154 +2,236 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaSwift - Enterprise Media Extraction Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>SaveVid — Tải video không kèm watermark trực tiếp từ liên kết</title>
+    <meta name="description" content="Tải video không kèm watermark trực tiếp từ liên kết hỗ trợ TikTok, Facebook, YouTube và YouTube Shorts chất lượng cao.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.8);
+        body {
+            background-color: #060913;
+            background-image:
+                radial-gradient(ellipse 80% 50% at 50% -15%, rgba(37, 99, 235, 0.22), transparent),
+                radial-gradient(ellipse 50% 40% at 85% 30%, rgba(79, 70, 229, 0.10), transparent);
+        }
+        .surface-card {
+            background: rgba(13, 19, 36, 0.78);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.55);
+        }
+        .tab-btn {
+            color: #94a3b8;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .tab-btn:hover {
+            color: #f8fafc;
+            background: rgba(30, 41, 59, 0.85);
+            border-color: rgba(255, 255, 255, 0.14);
         }
         .tab-btn.active {
+            color: #ffffff;
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            border-color: rgba(59, 130, 246, 0.6);
-            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+            border-color: rgba(96, 165, 250, 0.5);
+            box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.45);
+        }
+        .tab-btn.active i {
+            color: #ffffff !important;
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-blue-600 selection:text-white">
+<body class="text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-blue-600 selection:text-white">
 
-    <!-- Header -->
-    <header class="border-b border-slate-800/80 bg-slate-900/60 sticky top-0 z-50 backdrop-blur-md">
-        <div class="max-w-6xl mx-auto px-4 h-18 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/25">
-                    <i class="fa-solid fa-cloud-arrow-down text-white text-lg"></i>
+    <!-- Top Navigation -->
+    <header class="border-b border-white/[0.07] bg-[#060913]/80 sticky top-0 z-50 backdrop-blur-xl">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group focus:outline-none">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-blue-600/25 ring-1 ring-white/15 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-arrow-down-to-line text-white text-base"></i>
                 </div>
-                <div>
-                    <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-blue-400 bg-clip-text text-transparent">MediaSwift</span>
-                    <span class="text-xs block text-slate-400 font-medium" data-i18n="subTitle">Enterprise Media Extraction</span>
+                <div class="flex flex-col">
+                    <span class="text-lg sm:text-xl font-extrabold tracking-tight text-white leading-none">SaveVid</span>
+                    <span class="text-[11px] text-slate-400 font-medium mt-1" data-i18n="brandSub">Công cụ tải video trực tuyến</span>
                 </div>
-            </div>
+            </a>
 
             <!-- Language Switcher -->
-            <div class="flex items-center space-x-1 bg-slate-900/90 border border-slate-800 rounded-full p-1 shadow-inner">
-                <button onclick="setLanguage('vi')" id="lang-vi-btn" class="px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all bg-blue-600 text-white shadow">VI</button>
-                <button onclick="setLanguage('en')" id="lang-en-btn" class="px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all text-slate-400 hover:text-white">EN</button>
+            <div class="flex items-center bg-slate-900/95 border border-white/10 rounded-full p-1 shadow-inner" role="group" aria-label="Language Switcher">
+                <button type="button" onclick="setLanguage('vi')" id="lang-vi-btn" class="px-3.5 py-1 text-xs font-bold rounded-full transition-all bg-blue-600 text-white shadow-sm cursor-pointer">VI</button>
+                <button type="button" onclick="setLanguage('en')" id="lang-en-btn" class="px-3.5 py-1 text-xs font-bold rounded-full transition-all text-slate-400 hover:text-white cursor-pointer">EN</button>
             </div>
         </div>
     </header>
 
-    <!-- Main Container -->
-    <main class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Main Content -->
+    <main class="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14 pb-16">
         
         <!-- Hero Section -->
-        <div class="text-center mb-10">
-            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-4">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span data-i18n="badge">Hệ thống xử lý bảo mật & hiệu suất cao</span>
+        <section class="text-center mb-8 sm:mb-10">
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-semibold mb-4">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+                <span data-i18n="heroBadge">Hỗ trợ TikTok • Facebook • YouTube • Shorts</span>
             </div>
-            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4" data-i18n="heroTitle">Trình Trích Xuất Dữ Liệu Đa Nền Tảng</h1>
-            <p class="text-slate-400 max-w-xl mx-auto text-sm md:text-base" data-i18n="heroDesc">Trích xuất video không dấu chìm (watermark) từ TikTok, Facebook, YouTube và YouTube Shorts với độ phân giải tùy chọn tối ưu.</p>
-        </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-3.5">SaveVid</h1>
+            <p class="text-slate-300/90 max-w-xl mx-auto text-sm sm:text-base leading-relaxed font-normal" data-i18n="heroDesc">Tải video không kèm watermark trực tiếp từ liên kết.</p>
+        </section>
 
-        <!-- Platform Tabs -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-            <button onclick="switchTab('tiktok')" id="tab-tiktok" class="tab-btn active flex items-center justify-center space-x-2.5 py-3.5 px-4 rounded-xl border border-slate-800 bg-slate-900/80 text-sm font-semibold transition-all hover:bg-slate-800">
-                <i class="fa-brands fa-tiktok text-pink-500 text-base"></i>
+        <!-- Platform Selector Tabs -->
+        <div class="grid grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-5" role="tablist">
+            <button type="button" onclick="switchTab('tiktok')" id="tab-tiktok" class="tab-btn active flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+                <i class="fa-brands fa-tiktok text-pink-400 text-sm sm:text-base"></i>
                 <span>TikTok</span>
             </button>
-            <button onclick="switchTab('facebook')" id="tab-facebook" class="tab-btn flex items-center justify-center space-x-2.5 py-3.5 px-4 rounded-xl border border-slate-800 bg-slate-900/80 text-sm font-semibold transition-all hover:bg-slate-800">
-                <i class="fa-brands fa-facebook text-blue-500 text-base"></i>
+            <button type="button" onclick="switchTab('facebook')" id="tab-facebook" class="tab-btn flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+                <i class="fa-brands fa-facebook text-blue-400 text-sm sm:text-base"></i>
                 <span>Facebook</span>
             </button>
-            <button onclick="switchTab('youtube')" id="tab-youtube" class="tab-btn flex items-center justify-center space-x-2.5 py-3.5 px-4 rounded-xl border border-slate-800 bg-slate-900/80 text-sm font-semibold transition-all hover:bg-slate-800">
-                <i class="fa-brands fa-youtube text-red-500 text-base"></i>
+            <button type="button" onclick="switchTab('youtube')" id="tab-youtube" class="tab-btn flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+                <i class="fa-brands fa-youtube text-red-400 text-sm sm:text-base"></i>
                 <span>YouTube</span>
             </button>
-            <button onclick="switchTab('shorts')" id="tab-shorts" class="tab-btn flex items-center justify-center space-x-2.5 py-3.5 px-4 rounded-xl border border-slate-800 bg-slate-900/80 text-sm font-semibold transition-all hover:bg-slate-800">
-                <i class="fa-solid fa-bolt text-amber-400 text-base"></i>
+            <button type="button" onclick="switchTab('shorts')" id="tab-shorts" class="tab-btn flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer">
+                <i class="fa-solid fa-bolt text-amber-400 text-sm sm:text-base"></i>
                 <span>Shorts</span>
             </button>
         </div>
 
-        <!-- Input Panel -->
-        <div class="glass-panel p-6 md:p-8 rounded-2xl mb-8">
-            <div class="flex flex-col md:flex-row gap-3">
-                <div class="relative flex-1">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-500">
-                        <i class="fa-solid fa-link"></i>
+        <!-- URL Input Card -->
+        <section class="surface-card p-4 sm:p-6 rounded-2xl mb-6 sm:mb-8">
+            <div class="flex flex-col sm:flex-row gap-3">
+                <div class="relative flex-1 flex items-center">
+                    <span class="absolute left-4 text-slate-500 pointer-events-none">
+                        <i class="fa-solid fa-link text-sm"></i>
                     </span>
-                    <input type="text" id="url-input" class="w-full bg-slate-950/90 border border-slate-800/80 rounded-xl py-4 pl-12 pr-4 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-all shadow-inner" placeholder="Nhập hoặc dán liên kết phương tiện...">
+                    <input
+                        type="url"
+                        id="url-input"
+                        autocomplete="off"
+                        spellcheck="false"
+                        oninput="toggleInputActionBtn()"
+                        onkeydown="if(event.key === 'Enter') handleFetch()"
+                        class="w-full bg-[#070b16] border border-white/10 rounded-xl py-3.5 sm:py-4 pl-11 pr-20 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                        placeholder="Dán liên kết video vào đây..."
+                    >
+                    <button
+                        type="button"
+                        id="clipboard-btn"
+                        onclick="handleClipboardAction()"
+                        class="absolute right-2.5 px-2.5 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition-colors cursor-pointer flex items-center space-x-1"
+                    >
+                        <i class="fa-regular fa-paste text-[11px]"></i>
+                        <span data-i18n="pasteBtn">Dán</span>
+                    </button>
                 </div>
-                <button onclick="handleFetch()" id="fetch-btn" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl transition-all flex items-center justify-center space-x-2 shadow-lg shadow-blue-600/30 text-sm cursor-pointer whitespace-nowrap">
-                    <span data-i18n="btnText">Trích Xuất</span>
-                    <i class="fa-solid fa-arrow-right-long"></i>
+
+                <button
+                    type="button"
+                    onclick="handleFetch()"
+                    id="fetch-btn"
+                    class="bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-bold px-7 py-3.5 sm:py-4 rounded-xl transition-all flex items-center justify-center space-x-2 shadow-lg shadow-blue-600/25 text-sm cursor-pointer whitespace-nowrap"
+                >
+                    <span data-i18n="extractBtn">Trích xuất</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
                 </button>
             </div>
-            <div id="error-msg" class="text-rose-400 text-xs mt-3 px-1 hidden flex items-start space-x-1.5 font-medium leading-relaxed">
-                <i class="fa-solid fa-circle-exclamation mt-0.5"></i>
+
+            <!-- Validation / API Error Alert -->
+            <div id="error-msg" class="mt-3.5 p-3 rounded-xl bg-rose-500/10 border border-rose-500/25 text-rose-300 text-xs hidden flex items-start space-x-2 leading-relaxed">
+                <i class="fa-solid fa-circle-exclamation text-rose-400 mt-0.5 flex-shrink-0"></i>
                 <span id="error-text"></span>
             </div>
+        </section>
+
+        <!-- Loading State -->
+        <div id="loading-spinner" class="hidden surface-card p-10 sm:p-14 rounded-2xl mb-8 text-center">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
+                <div class="w-6 h-6 rounded-full border-2 border-blue-400 border-t-transparent animate-spin"></div>
+            </div>
+            <p class="text-slate-200 text-sm font-semibold mb-1" data-i18n="processingTitle">Đang phân tích liên kết...</p>
+            <p class="text-slate-400 text-xs" data-i18n="processingSub">Hệ thống đang trích xuất các luồng video và âm thanh chất lượng cao.</p>
         </div>
 
-        <!-- Loading Indicator -->
-        <div id="loading-spinner" class="hidden text-center py-16 glass-panel rounded-2xl mb-8">
-            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent mb-4 shadow-lg shadow-blue-500/20"></div>
-            <p class="text-slate-300 text-sm font-medium" data-i18n="processing">Đang phân tích và trích xuất luồng dữ liệu...</p>
-        </div>
-
-        <!-- Result Section -->
-        <div id="result-section" class="hidden glass-panel p-6 md:p-8 rounded-2xl mb-10">
-            <div class="flex flex-col md:flex-row gap-6 items-start">
-                <div class="w-full md:w-52 h-36 bg-slate-900 rounded-xl overflow-hidden border border-slate-800 flex items-center justify-center relative flex-shrink-0 shadow-inner">
-                    <img id="res-thumbnail" src="" alt="Thumbnail" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
-                        <i class="fa-solid fa-play text-white text-2xl opacity-90"></i>
+        <!-- Extraction Result Card -->
+        <section id="result-section" class="hidden surface-card p-5 sm:p-7 rounded-2xl mb-8 transition-all">
+            <div class="flex flex-col sm:flex-row gap-5 sm:gap-6 items-start">
+                <!-- Media Thumbnail -->
+                <div class="w-full sm:w-52 aspect-video sm:aspect-auto sm:h-36 bg-slate-900 rounded-xl overflow-hidden border border-white/10 relative flex-shrink-0 shadow-md">
+                    <img
+                        id="res-thumbnail"
+                        src=""
+                        alt="Video Thumbnail"
+                        onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop';"
+                        class="w-full h-full object-cover"
+                    >
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center">
+                            <i class="fa-solid fa-play text-white text-sm ml-0.5"></i>
+                        </div>
                     </div>
                 </div>
-                <div class="flex-1 w-full">
-                    <div class="flex items-center space-x-2 mb-2">
-                        <span id="res-platform" class="text-xs font-bold px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20 uppercase tracking-wider">TIKTOK</span>
-                        <span class="text-xs text-emerald-400 font-medium" data-i18n="extractedSuccess">• Trích xuất thành công</span>
+
+                <!-- Media Metadata & Download Formats -->
+                <div class="flex-1 w-full min-w-0">
+                    <div class="flex flex-wrap items-center gap-2 mb-2.5">
+                        <span id="res-platform" class="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-blue-500/15 text-blue-300 border border-blue-400/25 uppercase tracking-wider">TIKTOK</span>
+                        <span class="inline-flex items-center space-x-1 text-xs text-emerald-400 font-medium">
+                            <i class="fa-solid fa-circle-check text-[11px]"></i>
+                            <span data-i18n="readyStatus">Sẵn sàng tải xuống</span>
+                        </span>
                     </div>
-                    <h3 id="res-title" class="text-base font-bold text-slate-100 mb-5 line-clamp-2">Tiêu đề nội dung phương tiện</h3>
                     
-                    <!-- Format Options -->
-                    <div class="space-y-3">
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider" data-i18n="selectRes">Chọn định dạng và chất lượng tệp:</label>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="format-options"></div>
+                    <h2 id="res-title" class="text-base sm:text-lg font-bold text-white mb-4 line-clamp-2 leading-snug">Tiêu đề video</h2>
+                    
+                    <div class="space-y-2.5">
+                        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="selectFormat">Chọn định dạng tải về:</p>
+                        <div class="grid grid-cols-1 gap-2.5" id="format-options"></div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Session Download History -->
-        <div class="glass-panel p-6 rounded-2xl">
+        <!-- Session History -->
+        <section class="surface-card p-5 sm:p-6 rounded-2xl">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                    <span data-i18n="historyTitle">Lịch sử trích xuất phiên làm việc</span>
+                <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-2">
+                    <i class="fa-solid fa-clock-rotate-left text-blue-400"></i>
+                    <span data-i18n="historyTitle">Lịch sử trích xuất trong phiên</span>
                 </h3>
-                <span class="text-xs text-slate-500 font-medium" data-i18n="historyNote">Dữ liệu lưu tạm thời</span>
+                <div class="flex items-center space-x-3">
+                    <span class="hidden sm:inline text-[11px] text-slate-500 font-medium" data-i18n="historyNote">Lưu tạm trên trình duyệt</span>
+                    <button type="button" id="clear-history-btn" onclick="clearHistory()" class="hidden text-xs text-slate-400 hover:text-rose-400 font-semibold transition-colors cursor-pointer" data-i18n="clearHistory">Xóa tất cả</button>
+                </div>
             </div>
-            <div id="history-list" class="space-y-2.5">
-                <p class="text-xs text-slate-500 italic" id="no-history-msg" data-i18n="noHistory">Chưa có lịch sử giao dịch dữ liệu trong phiên này.</p>
+            <div id="history-list" class="space-y-2">
+                <p class="text-xs text-slate-500 py-2" id="no-history-msg" data-i18n="noHistory">Chưa có liên kết nào được tải xuống trong phiên làm việc này.</p>
             </div>
-        </div>
+        </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-900 mt-20 py-8 text-center text-xs text-slate-500 bg-slate-950/40">
-        <p data-i18n="footer">&copy; 2026 MediaSwift. Nền tảng trích xuất và phân tích dữ liệu đa phương tiện hiệu suất cao.</p>
+    <footer class="border-t border-white/[0.06] py-6 px-4 text-center text-xs text-slate-500 bg-[#05070f]/80">
+        <p data-i18n="footer">&copy; 2026 SaveVid. Tải video không kèm watermark trực tiếp từ liên kết.</p>
     </footer>
 
-    <!-- Script Logic -->
+    <!-- Application Logic -->
     <script>
         const WORKER_API_BASE = "https://mediaswift-api.hhaidang9319.workers.dev";
         const WORKER_API_URL = `${WORKER_API_BASE}/api/extract`;
@@ -159,57 +241,115 @@
 
         const i18n = {
             vi: {
-                subTitle: "Enterprise Media Extraction",
-                badge: "Hệ thống xử lý bảo mật & hiệu suất cao",
-                heroTitle: "Trình Trích Xuất Dữ Liệu Đa Nền Tảng",
-                heroDesc: "Trích xuất video không dấu chìm (watermark) từ TikTok, Facebook, YouTube và YouTube Shorts với độ phân giải tùy chọn tối ưu.",
-                placeholder: "Nhập hoặc dán liên kết phương tiện...",
-                btnText: "Trích Xuất",
-                processing: "Đang phân tích và trích xuất luồng dữ liệu...",
-                extractedSuccess: "• Trích xuất thành công",
-                selectRes: "Chọn định dạng và chất lượng tệp:",
-                historyTitle: "Lịch sử trích xuất phiên làm việc",
-                historyNote: "Dữ liệu lưu tạm thời",
-                noHistory: "Chưa có lịch sử giao dịch dữ liệu trong phiên này.",
-                footer: "© 2026 MediaSwift. Nền tảng trích xuất và phân tích dữ liệu đa phương tiện hiệu suất cao.",
-                invalidUrl: "Vui lòng nhập định dạng URL hợp lệ bắt đầu bằng http:// hoặc https://",
-                fetchError: "Lỗi phản hồi từ máy chủ xử lý dữ liệu.",
-                downloadBtn: "Tải xuống"
+                brandSub: "Công cụ tải video trực tuyến",
+                heroBadge: "Hỗ trợ TikTok • Facebook • YouTube • Shorts",
+                heroDesc: "Tải video không kèm watermark trực tiếp từ liên kết.",
+                placeholder: "Dán liên kết video vào đây...",
+                pasteBtn: "Dán",
+                clearBtn: "Xóa",
+                extractBtn: "Trích xuất",
+                processingTitle: "Đang phân tích liên kết...",
+                processingSub: "Hệ thống đang trích xuất các luồng video và âm thanh chất lượng cao.",
+                readyStatus: "Sẵn sàng tải xuống",
+                selectFormat: "Chọn định dạng tải về:",
+                downloadBtn: "Tải xuống",
+                historyTitle: "Lịch sử trích xuất trong phiên",
+                historyNote: "Lưu tạm trên trình duyệt",
+                clearHistory: "Xóa tất cả",
+                noHistory: "Chưa có liên kết nào được tải xuống trong phiên làm việc này.",
+                footer: "© 2026 SaveVid. Tải video không kèm watermark trực tiếp từ liên kết.",
+                invalidUrl: "Vui lòng nhập đường dẫn hợp lệ bắt đầu bằng http:// hoặc https://.",
+                fetchError: "Không thể trích xuất dữ liệu từ máy chủ. Vui lòng kiểm tra liên kết và thử lại.",
+                clipboardDenied: "Trình duyệt chưa cấp quyền đọc bộ nhớ tạm. Vui lòng dán thủ công vào ô nhập."
             },
             en: {
-                subTitle: "Enterprise Media Extraction",
-                badge: "Secure & High-Performance Processing Engine",
-                heroTitle: "Multi-Platform Media Extractor",
-                heroDesc: "Extract watermark-free videos from TikTok, Facebook, YouTube, and YouTube Shorts with optimal resolution options.",
-                placeholder: "Enter or paste media URL...",
-                btnText: "Extract",
-                processing: "Analyzing and extracting media streams...",
-                extractedSuccess: "• Extraction successful",
-                selectRes: "Select file format and quality:",
+                brandSub: "Online Video Downloader",
+                heroBadge: "Supports TikTok • Facebook • YouTube • Shorts",
+                heroDesc: "Download watermark-free videos directly from links.",
+                placeholder: "Paste video link here...",
+                pasteBtn: "Paste",
+                clearBtn: "Clear",
+                extractBtn: "Extract",
+                processingTitle: "Analyzing link...",
+                processingSub: "Extracting high-quality video and audio streams.",
+                readyStatus: "Ready to download",
+                selectFormat: "Select download format:",
+                downloadBtn: "Download",
                 historyTitle: "Session Extraction History",
-                historyNote: "Temporary session storage",
-                noHistory: "No media transactions recorded in this session.",
-                footer: "© 2026 MediaSwift. High-performance multi-platform media extraction platform.",
-                invalidUrl: "Please enter a valid URL starting with http:// or https://",
-                fetchError: "Error parsing response from data server.",
-                downloadBtn: "Download"
+                historyNote: "Stored temporarily in browser",
+                clearHistory: "Clear all",
+                noHistory: "No media links have been downloaded in this session yet.",
+                footer: "© 2026 SaveVid. Download watermark-free videos directly from links.",
+                invalidUrl: "Please enter a valid URL starting with http:// or https://.",
+                fetchError: "Unable to extract media from the server. Please verify the link and try again.",
+                clipboardDenied: "Clipboard access was blocked by your browser. Please paste the link manually."
             }
         };
 
         function setLanguage(lang) {
             currentLang = lang;
-            document.getElementById('lang-vi-btn').className = lang === 'vi'
-                ? 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all bg-blue-600 text-white shadow'
-                : 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all text-slate-400 hover:text-white';
-            document.getElementById('lang-en-btn').className = lang === 'en'
-                ? 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all bg-blue-600 text-white shadow'
-                : 'px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all text-slate-400 hover:text-white';
+            document.documentElement.lang = lang;
+
+            const activeBtnClass = 'px-3.5 py-1 text-xs font-bold rounded-full transition-all bg-blue-600 text-white shadow-sm cursor-pointer';
+            const inactiveBtnClass = 'px-3.5 py-1 text-xs font-bold rounded-full transition-all text-slate-400 hover:text-white cursor-pointer';
+
+            document.getElementById('lang-vi-btn').className = lang === 'vi' ? activeBtnClass : inactiveBtnClass;
+            document.getElementById('lang-en-btn').className = lang === 'en' ? activeBtnClass : inactiveBtnClass;
 
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (i18n[lang][key]) el.textContent = i18n[lang][key];
+                if (i18n[lang][key]) {
+                    el.textContent = i18n[lang][key];
+                }
             });
+
             document.getElementById('url-input').placeholder = i18n[lang].placeholder;
+            toggleInputActionBtn();
+
+            document.querySelectorAll('.dl-btn-label').forEach(el => {
+                el.textContent = i18n[lang].downloadBtn;
+            });
+        }
+
+        function toggleInputActionBtn() {
+            const input = document.getElementById('url-input');
+            const clipBtn = document.getElementById('clipboard-btn');
+            if (input.value.trim().length > 0) {
+                clipBtn.innerHTML = `<i class="fa-solid fa-xmark text-[11px]"></i><span>${i18n[currentLang].clearBtn}</span>`;
+            } else {
+                clipBtn.innerHTML = `<i class="fa-regular fa-paste text-[11px]"></i><span>${i18n[currentLang].pasteBtn}</span>`;
+            }
+        }
+
+        async function handleClipboardAction() {
+            const input = document.getElementById('url-input');
+            if (input.value.trim().length > 0) {
+                input.value = '';
+                input.focus();
+                toggleInputActionBtn();
+                document.getElementById('error-msg').classList.add('hidden');
+                return;
+            }
+
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text) {
+                    input.value = text.trim();
+                    toggleInputActionBtn();
+                    detectPlatformFromUrl(text.trim());
+                }
+            } catch (err) {
+                showError(i18n[currentLang].clipboardDenied);
+                input.focus();
+            }
+        }
+
+        function detectPlatformFromUrl(url) {
+            const lower = url.toLowerCase();
+            if (lower.includes('tiktok.com')) switchTab('tiktok');
+            else if (lower.includes('facebook.com') || lower.includes('fb.watch')) switchTab('facebook');
+            else if (lower.includes('youtube.com/shorts')) switchTab('shorts');
+            else if (lower.includes('youtube.com') || lower.includes('youtu.be')) switchTab('youtube');
         }
 
         function switchTab(platform) {
@@ -221,17 +361,26 @@
             document.getElementById('error-msg').classList.add('hidden');
         }
 
+        function showError(message) {
+            const errorEl = document.getElementById('error-msg');
+            document.getElementById('error-text').textContent = message;
+            errorEl.classList.remove('hidden');
+        }
+
         async function handleFetch() {
             const url = document.getElementById('url-input').value.trim();
             const errorEl = document.getElementById('error-msg');
-            const errorText = document.getElementById('error-text');
+            const fetchBtn = document.getElementById('fetch-btn');
             
             if (!url || !url.startsWith('http')) {
-                errorText.textContent = i18n[currentLang].invalidUrl;
-                errorEl.classList.remove('hidden');
+                showError(i18n[currentLang].invalidUrl);
                 return;
             }
+
+            detectPlatformFromUrl(url);
             errorEl.classList.add('hidden');
+            fetchBtn.disabled = true;
+            fetchBtn.classList.add('opacity-70', 'cursor-not-allowed');
 
             document.getElementById('loading-spinner').classList.remove('hidden');
             document.getElementById('result-section').classList.add('hidden');
@@ -255,8 +404,10 @@
                 showResult(url, data);
             } catch (err) {
                 document.getElementById('loading-spinner').classList.add('hidden');
-                errorText.textContent = err.message || i18n[currentLang].fetchError;
-                errorEl.classList.remove('hidden');
+                showError(err.message || i18n[currentLang].fetchError);
+            } finally {
+                fetchBtn.disabled = false;
+                fetchBtn.classList.remove('opacity-70', 'cursor-not-allowed');
             }
         }
 
@@ -265,50 +416,60 @@
             resultSection.classList.remove('hidden');
 
             document.getElementById('res-platform').textContent = currentPlatform.toUpperCase();
-            document.getElementById('res-title').textContent = data.title;
+            document.getElementById('res-title').textContent = data.title || 'SaveVid Media';
             document.getElementById('res-thumbnail').src = data.thumbnail;
 
             const formatContainer = document.getElementById('format-options');
             formatContainer.innerHTML = '';
 
             data.formats.forEach(opt => {
-                const proxyDownloadUrl = `${WORKER_API_BASE}/api/download?url=${encodeURIComponent(opt.url)}&type=${encodeURIComponent(opt.type)}&filename=${encodeURIComponent(data.title)}`;
+                const proxyDownloadUrl = `${WORKER_API_BASE}/api/download?url=${encodeURIComponent(opt.url)}&type=${encodeURIComponent(opt.type)}&filename=${encodeURIComponent(data.title || 'SaveVid_Video')}`;
+                const isAudio = opt.type === 'audio';
                 
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.onclick = () => {
-                    // Kích hoạt trình tải xuống mặc định của trình duyệt ngay lập tức mà không mở tab mới
                     window.location.href = proxyDownloadUrl;
                     addHistory(url, opt.label);
                 };
 
-                btn.className = 'w-full flex items-center justify-between p-3.5 rounded-xl border border-slate-800 bg-slate-900/90 hover:bg-blue-600/20 hover:border-blue-500/50 transition-all text-xs font-semibold text-slate-200 group cursor-pointer shadow-sm text-left';
+                btn.className = 'w-full flex items-center justify-between px-4 py-3.5 rounded-xl border border-white/10 bg-[#080d1a] hover:bg-blue-600/15 hover:border-blue-500/50 active:scale-[0.99] transition-all text-xs sm:text-sm font-semibold text-slate-100 group cursor-pointer text-left';
                 btn.innerHTML = `
-                    <span class="flex items-center space-x-2.5">
-                        <i class="fa-solid ${opt.type === 'video' ? 'fa-video text-blue-400' : 'fa-music text-emerald-400'} text-sm"></i>
-                        <span>${opt.label}</span>
+                    <span class="flex items-center space-x-3 min-w-0 pr-2">
+                        <span class="w-8 h-8 rounded-lg ${isAudio ? 'bg-emerald-500/15 text-emerald-400' : 'bg-blue-500/15 text-blue-400'} flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid ${isAudio ? 'fa-music' : 'fa-film'} text-xs"></i>
+                        </span>
+                        <span class="truncate">${opt.label}</span>
                     </span>
-                    <span class="flex items-center space-x-1.5 text-blue-400 group-hover:translate-x-0.5 transition-transform">
-                        <span>${i18n[currentLang].downloadBtn}</span>
-                        <i class="fa-solid fa-download"></i>
+                    <span class="flex items-center space-x-1.5 text-blue-400 group-hover:text-blue-300 font-bold text-xs flex-shrink-0 bg-blue-500/10 px-3 py-1.5 rounded-lg border border-blue-400/20">
+                        <span class="dl-btn-label">${i18n[currentLang].downloadBtn}</span>
+                        <i class="fa-solid fa-download text-[11px]"></i>
                     </span>
                 `;
                 formatContainer.appendChild(btn);
             });
         }
 
-        function addHistory(url, type) {
+        function addHistory(url, label) {
             const historyList = document.getElementById('history-list');
             const noHist = document.getElementById('no-history-msg');
             if (noHist) noHist.remove();
 
+            document.getElementById('clear-history-btn').classList.remove('hidden');
+
             const item = document.createElement('div');
-            item.className = 'flex items-center justify-between p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 text-xs';
+            item.className = 'flex items-center justify-between gap-3 p-3 rounded-xl bg-[#080d1a]/90 border border-white/[0.06] text-xs';
             item.innerHTML = `
-                <span class="truncate max-w-[240px] sm:max-w-md text-slate-300 font-medium">${url}</span>
-                <span class="text-blue-400 font-semibold px-2.5 py-1 rounded-md bg-blue-500/10 border border-blue-500/20">${type}</span>
+                <span class="truncate text-slate-300 font-medium flex-1 min-w-0">${url}</span>
+                <span class="text-blue-300 font-semibold px-2.5 py-1 rounded-md bg-blue-500/10 border border-blue-400/20 flex-shrink-0">${label}</span>
             `;
             historyList.prepend(item);
+        }
+
+        function clearHistory() {
+            const historyList = document.getElementById('history-list');
+            historyList.innerHTML = `<p class="text-xs text-slate-500 py-2" id="no-history-msg" data-i18n="noHistory">${i18n[currentLang].noHistory}</p>`;
+            document.getElementById('clear-history-btn').classList.add('hidden');
         }
     </script>
 </body>
