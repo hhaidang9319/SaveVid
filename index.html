@@ -252,8 +252,37 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/[0.06] py-6 px-4 text-center text-xs text-slate-500 bg-[#04060d]/90">
-        <p data-i18n="footer">&copy; 2026 SaveVid. Tải video không kèm watermark trực tiếp từ liên kết.</p>
+    <footer class="border-t border-white/[0.06] py-8 px-4 text-center text-xs text-slate-400 bg-[#04060d]/90">
+        <div class="max-w-3xl mx-auto space-y-3">
+            <!-- Dòng bản quyền -->
+            <p class="text-slate-500" data-i18n="footer">&copy; 2026 SaveVid. Tải video không kèm watermark trực tiếp từ liên kết.</p>
+            
+            <!-- Thông tin đội ngũ phát triển & Liên hệ hợp tác / DMCA -->
+            <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-slate-400">
+                <span class="inline-flex items-center space-x-1.5">
+                    <i class="fa-solid fa-code text-blue-400 text-[11px]"></i>
+                    <span data-i18n="adminLabel">Phát triển bởi</span>
+                    <strong translate="no" class="notranslate text-slate-200 font-semibold">SaveVid Team</strong>
+                </span>
+
+                <span class="hidden sm:inline text-slate-700">•</span>
+
+                <span class="inline-flex items-center space-x-1.5">
+                    <i class="fa-regular fa-envelope text-cyan-400 text-[11px]"></i>
+                    <span data-i18n="contactLabel">Liên hệ hợp tác &amp; DMCA:</span>
+                    <a href="mailto:savevid@gmail.com" class="text-blue-400 hover:text-blue-300 underline decoration-blue-400/30 underline-offset-4 transition-colors font-medium">
+                        savevid@gmail.com
+                    </a>
+                </span>
+            </div>
+
+            <!-- Khung tuyên bố miễn trừ trách nhiệm bản quyền -->
+            <div class="pt-2">
+                <p class="text-[11px] text-slate-500/90 max-w-2xl mx-auto leading-relaxed bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-2.5" data-i18n="disclaimerText">
+                    SaveVid không lưu trữ bất kỳ video hay âm thanh nào trên máy chủ. Công cụ chỉ hỗ trợ trích xuất đường dẫn công khai phục vụ mục đích sao lưu cá nhân, phi thương mại và tôn trọng bản quyền của tác giả gốc.
+                </p>
+            </div>
+        </div>
     </footer>
 
     <!-- Application Logic -->
@@ -286,10 +315,42 @@
                 clearHistory: "Xóa tất cả",
                 noHistory: "Chưa có video nào được tải trong phiên này.",
                 footer: "© 2026 SaveVid. Tải video không kèm watermark trực tiếp từ liên kết.",
+                adminLabel: "Phát triển bởi",
+                contactLabel: "Liên hệ hợp tác & DMCA:",
+                disclaimerText: "SaveVid không lưu trữ bất kỳ video hay âm thanh nào trên máy chủ. Công cụ chỉ hỗ trợ trích xuất đường dẫn công khai phục vụ mục đích sao lưu cá nhân, phi thương mại và tôn trọng bản quyền của tác giả gốc.",
                 invalidUrl: "Liên kết chưa đúng định dạng. Vui lòng dán đường dẫn bắt đầu bằng http:// hoặc https://.",
                 fetchError: "Không thể lấy thông tin video từ liên kết này. Vui lòng kiểm tra lại hoặc thử liên kết khác.",
                 clipboardDenied: "Trình duyệt chưa cấp quyền đọc bộ nhớ tạm. Bạn hãy dán trực tiếp vào ô bên trái nhé."
             },
+            en: {
+                brandSub: "Multi-Platform Video Saver",
+                heroBadge: "Free • High-Speed • Original Quality",
+                heroDesc: "Download watermark-free videos directly from links.",
+                placeholder: "Paste a TikTok, Facebook, YouTube, or Shorts link...",
+                pasteBtn: "Paste",
+                clearBtn: "Clear",
+                extractBtn: "Download",
+                feat1: "No Watermark",
+                feat2: "HD Video & MP3 Audio",
+                feat3: "All Devices",
+                processingTitle: "Processing your link...",
+                processingSub: "Please wait a moment while we fetch the best available quality.",
+                readyStatus: "Ready",
+                selectFormat: "Choose quality & format:",
+                downloadBtn: "Save file",
+                historyTitle: "Recent Downloads",
+                historyNote: "Session only",
+                clearHistory: "Clear all",
+                noHistory: "No videos downloaded in this session yet.",
+                footer: "© 2026 SaveVid. Download watermark-free videos directly from links.",
+                adminLabel: "Created by",
+                contactLabel: "Partnerships & DMCA:",
+                disclaimerText: "SaveVid does not host or store any video or audio files on its servers. This tool only extracts publicly available links for personal, non-commercial backup purposes while respecting original creators' copyrights.",
+                invalidUrl: "Invalid link format. Please paste a URL starting with http:// or https://.",
+                fetchError: "Could not retrieve video details from this link. Please verify the URL and try again.",
+                clipboardDenied: "Clipboard access was blocked by your browser. Please paste the link manually."
+            }
+        };,
             en: {
                 brandSub: "Multi-Platform Video Saver",
                 heroBadge: "Free • High-Speed • Original Quality",
