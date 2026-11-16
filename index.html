@@ -628,5 +628,38 @@
             document.getElementById('clear-history-btn').classList.add('hidden');
         }
     </script>
+
+    <!-- BỔ SUNG: hiển thị độ phân giải từ metadata API; không thay đổi logic gốc -->
+    <script>
+    (function () {
+        const originalShowResult = showResult;
+        showResult = function (url, data) {
+            originalShowResult(url, data);
+            if (!Array.isArray(data.formats)) return;
+            const buttons = document.querySelectorAll('#format-options > button');
+            data.formats.forEach((opt, index) => {
+                if (opt.type === 'audio' || !buttons[index]) return;
+                let resolution = '';
+                const width = Number(opt.width);
+                const height = Number(opt.height);
+                if (Number.isInteger(width) && Number.isInteger(height) && width > 0 && height > 0) {
+                    resolution = `${width} × ${height}`;
+                } else if (typeof opt.resolution === 'string') {
+                    const match = opt.resolution.trim().match(/^(\d{2,5})\s*[x×]\s*(\d{2,5})$/i);
+                    if (match) resolution = `${match[1]} × ${match[2]}`;
+                }
+                if (!resolution) return;
+                const label = buttons[index].querySelector('.truncate');
+                if (!label) return;
+                const detail = document.createElement('span');
+                detail.className = 'block text-[11px] text-slate-400 font-medium mt-1';
+                detail.textContent = resolution;
+                label.classList.remove('truncate');
+                label.classList.add('min-w-0', 'break-words');
+                label.appendChild(detail);
+            });
+        };
+    })();
+    </script>
 </body>
 </html>
