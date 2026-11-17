@@ -1,0 +1,1 @@
+SaveVid Douyin share-link patch. Frontend extracts URL from Chinese share text. Worker resolves Douyin short links with bounded redirects. Test on staging before production. RAPIDAPI_KEY must be a Cloudflare Secret. No live RapidAPI test performed.\n
