@@ -1,8 +1,3 @@
-
-# Robots.txt - SaveVid
-# Website: https://savevid.cloud/
-
 User-agent: *
 Allow: /
-
 Sitemap: https://savevid.cloud/sitemap.xml
