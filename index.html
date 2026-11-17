@@ -198,7 +198,8 @@
                         <i class="fa-solid fa-link text-sm"></i>
                     </span>
                     <input
-                        type="url"
+                        type="text"
+                        inputmode="url"
                         id="url-input"
                         autocomplete="off"
                         spellcheck="false"
@@ -404,6 +405,12 @@
             }
         }
 
+        // Douyin shares may contain Chinese text surrounding the short URL.
+        function extractSharedVideoUrl(raw) {
+            const match = String(raw || '').match(/https?:\/\/[^\s<>"'，。！？；、]+/i);
+            return match ? match[0].replace(/[)\]}>.,;!?]+$/, '') : '';
+        }
+
         function getPlatformFromUrl(value) {
             try {
                 const host = new URL(value).hostname.toLowerCase();
@@ -528,7 +535,7 @@
             try {
                 const text = await navigator.clipboard.readText();
                 if (text) {
-                    input.value = text.trim();
+                    input.value = extractSharedVideoUrl(text) || text.trim();
                     trackEvent('paste_link', { platform: getPlatformFromUrl(input.value), paste_method: 'button' });
                     toggleInputActionBtn();
                     detectPlatformFromUrl(text.trim());
@@ -548,7 +555,7 @@
         });
 
         function detectPlatformFromUrl(url) {
-            const lower = url.toLowerCase();
+            const lower = (extractSharedVideoUrl(url) || url).toLowerCase();
             if (lower.includes('tiktok.com')) switchTab('tiktok');
             else if (lower.includes('facebook.com') || lower.includes('fb.watch')) switchTab('facebook');
             else if (lower.includes('youtube.com/shorts')) switchTab('shorts');
@@ -574,11 +581,11 @@
         }
 
         async function handleFetch() {
-            const url = document.getElementById('url-input').value.trim();
+            const url = extractSharedVideoUrl(document.getElementById('url-input').value.trim());
             const errorEl = document.getElementById('error-msg');
             const fetchBtn = document.getElementById('fetch-btn');
             
-            if (!url || !url.startsWith('http')) {
+            if (!url || !/^https?:\/\//i.test(url)) {
                 showError(i18n[currentLang].invalidUrl);
                 return;
             }
